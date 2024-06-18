@@ -92,7 +92,7 @@ fn setup(
             TargetCamera(texture_camera),
         ))
         .with_children(|parent| {
-            parent.spawn(TextBundle::from_section(
+            parent.spawn(TextBundle::from_span(
                 "This is a cube",
                 TextStyle {
                     font_size: 40.0,

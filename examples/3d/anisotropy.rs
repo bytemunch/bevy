@@ -294,7 +294,7 @@ impl AppStatus {
         };
 
         // Build the `Text` object.
-        Text::from_section(
+        Text::from_span(
             format!("{}\n{}", material_variant_help_text, light_help_text),
             TextStyle {
                 font: asset_server.load("fonts/FiraMono-Medium.ttf"),

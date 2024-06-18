@@ -317,16 +317,16 @@ fn setup_sticks(
                 parent.spawn((
                     Text2dBundle {
                         transform: Transform::from_xyz(0., STICK_BOUNDS_SIZE + 2., 4.),
-                        text: Text::from_sections([
-                            TextSection {
+                        text: Text::from_spans([
+                            TextSpan {
                                 value: format!("{:.3}", 0.),
                                 style: style.clone(),
                             },
-                            TextSection {
+                            TextSpan {
                                 value: ", ".to_string(),
                                 style: style.clone(),
                             },
-                            TextSection {
+                            TextSpan {
                                 value: format!("{:.3}", 0.),
                                 style,
                             },
@@ -389,7 +389,7 @@ fn setup_triggers(
                 parent.spawn((
                     Text2dBundle {
                         transform: Transform::from_xyz(0., 0., 1.),
-                        text: Text::from_section(
+                        text: Text::from_span(
                             format!("{:.3}", 0.),
                             TextStyle {
                                 font_size: 16.,
@@ -420,12 +420,12 @@ fn setup_connected(mut commands: Commands) {
 
     commands.spawn((
         TextBundle {
-            text: Text::from_sections([
-                TextSection {
+            text: Text::from_spans([
+                TextSpan {
                     value: "Connected Gamepads:\n".to_string(),
                     style: text_style.clone(),
                 },
-                TextSection {
+                TextSpan {
                     value: "None".to_string(),
                     style: text_style,
                 },
@@ -467,7 +467,7 @@ fn update_button_values(
     for button_event in events.read() {
         for (mut text, text_with_button_value) in query.iter_mut() {
             if button_event.button_type == **text_with_button_value {
-                text.sections[0].value = format!("{:.3}", button_event.value);
+                text.spans[0].value = format!("{:.3}", button_event.value);
             }
         }
     }
@@ -491,10 +491,10 @@ fn update_axes(
         }
         for (mut text, text_with_axes) in text_query.iter_mut() {
             if axis_type == text_with_axes.x_axis {
-                text.sections[0].value = format!("{value:.3}");
+                text.spans[0].value = format!("{value:.3}");
             }
             if axis_type == text_with_axes.y_axis {
-                text.sections[2].value = format!("{value:.3}");
+                text.spans[2].value = format!("{value:.3}");
             }
         }
     }
@@ -516,7 +516,7 @@ fn update_connected(
         .collect::<Vec<_>>()
         .join("\n");
 
-    text.sections[1].value = if !formatted.is_empty() {
+    text.spans[1].value = if !formatted.is_empty() {
         formatted
     } else {
         "None".to_string()

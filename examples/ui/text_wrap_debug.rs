@@ -121,7 +121,7 @@ fn spawn(mut commands: Commands, asset_server: Res<AssetServer>) {
 
             for (j, message) in messages.into_iter().enumerate() {
                 let text = Text {
-                    sections: vec![TextSection {
+                    spans: vec![TextSpan {
                         value: message.clone(),
                         style: text_style.clone(),
                     }],

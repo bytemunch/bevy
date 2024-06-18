@@ -269,7 +269,7 @@ fn setup_menu(mut commands: Commands) {
                     ..default()
                 })
                 .with_children(|parent| {
-                    parent.spawn(TextBundle::from_section(
+                    parent.spawn(TextBundle::from_span(
                         "Play",
                         TextStyle {
                             font_size: 40.0,

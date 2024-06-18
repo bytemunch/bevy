@@ -191,7 +191,7 @@ fn setup(
     };
 
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Up / Down — Increase / Decrease Alpha\nLeft / Right — Rotate Camera\nH - Toggle HDR\nSpacebar — Toggle Unlit\nC — Randomize Colors",
             text_style.clone(),
         )
@@ -204,7 +204,7 @@ fn setup(
     );
 
     commands.spawn((
-        TextBundle::from_section("", text_style).with_style(Style {
+        TextBundle::from_span("", text_style).with_style(Style {
             position_type: PositionType::Absolute,
             top: Val::Px(12.0),
             right: Val::Px(12.0),
@@ -227,7 +227,7 @@ fn setup(
             ))
             .with_children(|parent| {
                 parent.spawn(
-                    TextBundle::from_section(label, label_text_style.clone())
+                    TextBundle::from_span(label, label_text_style.clone())
                         .with_style(Style {
                             position_type: PositionType::Absolute,
                             bottom: Val::ZERO,
@@ -345,7 +345,7 @@ fn example_control_system(
     }
 
     let mut display = display.single_mut();
-    display.sections[0].value = format!(
+    display.spans[0].value = format!(
         "  HDR: {}\nAlpha: {:.2}",
         if camera.hdr { "ON " } else { "OFF" },
         state.alpha

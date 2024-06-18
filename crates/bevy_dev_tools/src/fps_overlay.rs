@@ -11,7 +11,7 @@ use bevy_ecs::{
     system::{Commands, Query, Res, Resource},
 };
 use bevy_hierarchy::BuildChildren;
-use bevy_text::{Font, Text, TextSection, TextStyle};
+use bevy_text::{Font, Text, TextSpan, TextStyle};
 use bevy_ui::{
     node_bundles::{NodeBundle, TextBundle},
     PositionType, Style, ZIndex,
@@ -90,9 +90,9 @@ fn setup(mut commands: Commands, overlay_config: Res<FpsOverlayConfig>) {
         })
         .with_children(|c| {
             c.spawn((
-                TextBundle::from_sections([
-                    TextSection::new("FPS: ", overlay_config.text_config.clone()),
-                    TextSection::from_style(overlay_config.text_config.clone()),
+                TextBundle::from_spans([
+                    TextSpan::new("FPS: ", overlay_config.text_config.clone()),
+                    TextSpan::from_style(overlay_config.text_config.clone()),
                 ]),
                 FpsText,
             ));
@@ -103,7 +103,7 @@ fn update_text(diagnostic: Res<DiagnosticsStore>, mut query: Query<&mut Text, Wi
     for mut text in &mut query {
         if let Some(fps) = diagnostic.get(&FrameTimeDiagnosticsPlugin::FPS) {
             if let Some(value) = fps.smoothed() {
-                text.sections[1].value = format!("{value:.2}");
+                text.spans[1].value = format!("{value:.2}");
             }
         }
     }
@@ -114,8 +114,8 @@ fn customize_text(
     mut query: Query<&mut Text, With<FpsText>>,
 ) {
     for mut text in &mut query {
-        for section in text.sections.iter_mut() {
-            section.style = overlay_config.text_config.clone();
+        for span in text.spans.iter_mut() {
+            span.style = overlay_config.text_config.clone();
         }
     }
 }

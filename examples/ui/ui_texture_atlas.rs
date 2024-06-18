@@ -60,16 +60,16 @@ fn setup(
                 BackgroundColor(ANTIQUE_WHITE.into()),
                 Outline::new(Val::Px(8.0), Val::ZERO, CRIMSON.into()),
             ));
-            parent.spawn(TextBundle::from_sections([
-                TextSection::new("press ".to_string(), text_style.clone()),
-                TextSection::new(
+            parent.spawn(TextBundle::from_spans([
+                TextSpan::new("press ".to_string(), text_style.clone()),
+                TextSpan::new(
                     "space".to_string(),
                     TextStyle {
                         color: YELLOW.into(),
                         ..text_style.clone()
                     },
                 ),
-                TextSection::new(" to advance frames".to_string(), text_style),
+                TextSpan::new(" to advance frames".to_string(), text_style),
             ]));
         });
 }

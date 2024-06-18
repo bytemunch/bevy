@@ -62,7 +62,7 @@ fn setup(
 
     // labels
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Perceptual Roughness",
             TextStyle {
                 font_size: 36.0,
@@ -78,7 +78,7 @@ fn setup(
     );
 
     commands.spawn(TextBundle {
-        text: Text::from_section(
+        text: Text::from_span(
             "Metallic",
             TextStyle {
                 font_size: 36.0,
@@ -99,7 +99,7 @@ fn setup(
     });
 
     commands.spawn((
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Loading Environment Map...",
             TextStyle {
                 font_size: 36.0,

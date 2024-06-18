@@ -73,7 +73,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                 })
                 .with_children(|parent| {
                     parent.spawn(
-                        TextBundle::from_section("Size Constraints Example", text_style.clone())
+                        TextBundle::from_span("Size Constraints Example", text_style.clone())
                             .with_style(Style {
                                 margin: UiRect::bottom(Val::Px(25.)),
                                 ..Default::default()
@@ -193,7 +193,7 @@ fn spawn_button_row(parent: &mut ChildBuilder, constraint: Constraint, text_styl
                         })
                         .with_children(|parent| {
                             parent.spawn(TextBundle {
-                                text: Text::from_section(label.to_string(), text_style.clone()),
+                                text: Text::from_span(label.to_string(), text_style.clone()),
                                 ..Default::default()
                             });
                         });
@@ -273,7 +273,7 @@ fn spawn_button(
                 })
                 .with_children(|parent| {
                     parent.spawn(TextBundle {
-                        text: Text::from_section(
+                        text: Text::from_span(
                             label,
                             TextStyle {
                                 color: if active {
@@ -327,8 +327,8 @@ fn update_buttons(
                         if let Ok(grand_children) = children_query.get(child) {
                             for &grandchild in grand_children {
                                 if let Ok(mut text) = text_query.get_mut(grandchild) {
-                                    if text.sections[0].style.color != ACTIVE_TEXT_COLOR {
-                                        text.sections[0].style.color = HOVERED_TEXT_COLOR;
+                                    if text.spans[0].style.color != ACTIVE_TEXT_COLOR {
+                                        text.spans[0].style.color = HOVERED_TEXT_COLOR;
                                     }
                                 }
                             }
@@ -342,8 +342,8 @@ fn update_buttons(
                         if let Ok(grand_children) = children_query.get(child) {
                             for &grandchild in grand_children {
                                 if let Ok(mut text) = text_query.get_mut(grandchild) {
-                                    if text.sections[0].style.color != ACTIVE_TEXT_COLOR {
-                                        text.sections[0].style.color = UNHOVERED_TEXT_COLOR;
+                                    if text.spans[0].style.color != ACTIVE_TEXT_COLOR {
+                                        text.spans[0].style.color = UNHOVERED_TEXT_COLOR;
                                     }
                                 }
                             }
@@ -386,7 +386,7 @@ fn update_radio_buttons_colors(
                     color_query.get_mut(child).unwrap().0 = inner_color;
                     for &grandchild in children_query.get(child).into_iter().flatten() {
                         if let Ok(mut text) = text_query.get_mut(grandchild) {
-                            text.sections[0].style.color = text_color;
+                            text.spans[0].style.color = text_color;
                         }
                     }
                 }

@@ -378,12 +378,12 @@ fn setup_text(mut commands: Commands, cameras: Query<(Entity, &Camera)>) {
     let instructions = "Press 'C' to switch between 2D and 3D mode\n\
         Press 'Up' or 'Down' to switch to the next/previous primitive";
     let text = [
-        TextSection::new("Primitive: ", style.clone()),
-        TextSection::new(text, style.clone()),
-        TextSection::new("\n\n", style.clone()),
-        TextSection::new(instructions, style.clone()),
-        TextSection::new("\n\n", style.clone()),
-        TextSection::new(
+        TextSpan::new("Primitive: ", style.clone()),
+        TextSpan::new(text, style.clone()),
+        TextSpan::new("\n\n", style.clone()),
+        TextSpan::new(instructions, style.clone()),
+        TextSpan::new("\n\n", style.clone()),
+        TextSpan::new(
             "(If nothing is displayed, there's no rendering support yet)",
             style.clone(),
         ),
@@ -405,7 +405,7 @@ fn setup_text(mut commands: Commands, cameras: Query<(Entity, &Camera)>) {
         .with_children(|parent| {
             parent.spawn((
                 HeaderText,
-                TextBundle::from_sections(text).with_text_justify(JustifyText::Center),
+                TextBundle::from_spans(text).with_text_justify(JustifyText::Center),
             ));
         });
 }
@@ -416,7 +416,7 @@ fn update_text(
 ) {
     let new_text = format!("{text}", text = primitive_state.get());
     header.iter_mut().for_each(|mut header_text| {
-        if let Some(kind) = header_text.sections.get_mut(1) {
+        if let Some(kind) = header_text.spans.get_mut(1) {
             kind.value.clone_from(&new_text);
         };
     });

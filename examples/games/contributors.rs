@@ -138,9 +138,9 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     };
 
     commands.spawn((
-        TextBundle::from_sections([
-            TextSection::new("Contributor showcase", text_style.clone()),
-            TextSection::from_style(TextStyle {
+        TextBundle::from_spans([
+            TextSpan::new("Contributor showcase", text_style.clone()),
+            TextSpan::from_style(TextStyle {
                 font_size: 30.,
                 ..text_style
             }),
@@ -202,13 +202,13 @@ fn select(
 
     transform.translation.z = 100.0;
 
-    text.sections[0].value.clone_from(&contributor.name);
-    text.sections[1].value = format!(
+    text.spans[0].value.clone_from(&contributor.name);
+    text.spans[1].value = format!(
         "\n{} commit{}",
         contributor.num_commits,
         if contributor.num_commits > 1 { "s" } else { "" }
     );
-    text.sections[0].style.color = sprite.color;
+    text.spans[0].style.color = sprite.color;
 }
 
 /// Change the tint color to the "deselected" color and push

@@ -369,7 +369,7 @@ mod ui {
                         MenuButton::Play,
                     ))
                     .with_children(|parent| {
-                        parent.spawn(TextBundle::from_section(
+                        parent.spawn(TextBundle::from_span(
                             "Play",
                             TextStyle {
                                 font_size: 40.0,
@@ -400,7 +400,7 @@ mod ui {
                         MenuButton::Tutorial,
                     ))
                     .with_children(|parent| {
-                        parent.spawn(TextBundle::from_section(
+                        parent.spawn(TextBundle::from_span(
                             "Tutorial",
                             TextStyle {
                                 font_size: 40.0,
@@ -501,7 +501,7 @@ mod ui {
                         MenuButton::Play,
                     ))
                     .with_children(|parent| {
-                        parent.spawn(TextBundle::from_section(
+                        parent.spawn(TextBundle::from_span(
                             "Paused",
                             TextStyle {
                                 font_size: 40.0,
@@ -533,7 +533,7 @@ mod ui {
                 },
             ))
             .with_children(|parent| {
-                parent.spawn(TextBundle::from_section(
+                parent.spawn(TextBundle::from_span(
                     "TURBO MODE",
                     TextStyle {
                         font_size: 40.0,
@@ -575,7 +575,7 @@ mod ui {
                 },
             ))
             .with_children(|parent| {
-                parent.spawn(TextBundle::from_section(
+                parent.spawn(TextBundle::from_span(
                     "Move the bevy logo with the arrow keys",
                     TextStyle {
                         font_size: 40.0,
@@ -583,7 +583,7 @@ mod ui {
                         ..default()
                     },
                 ));
-                parent.spawn(TextBundle::from_section(
+                parent.spawn(TextBundle::from_span(
                     "Press T to enter TURBO MODE",
                     TextStyle {
                         font_size: 40.0,
@@ -592,7 +592,7 @@ mod ui {
                     },
                 ));
 
-                parent.spawn(TextBundle::from_section(
+                parent.spawn(TextBundle::from_span(
                     "Press SPACE to pause",
                     TextStyle {
                         font_size: 40.0,
@@ -601,7 +601,7 @@ mod ui {
                     },
                 ));
 
-                parent.spawn(TextBundle::from_section(
+                parent.spawn(TextBundle::from_span(
                     "Press ESCAPE to return to the menu",
                     TextStyle {
                         font_size: 40.0,
@@ -632,7 +632,7 @@ mod ui {
                 },
             ))
             .with_children(|parent| {
-                parent.spawn(TextBundle::from_section(
+                parent.spawn(TextBundle::from_span(
                     "Press SPACE to resume",
                     TextStyle {
                         font_size: 40.0,
@@ -641,7 +641,7 @@ mod ui {
                     },
                 ));
 
-                parent.spawn(TextBundle::from_section(
+                parent.spawn(TextBundle::from_span(
                     "Press ESCAPE to return to the menu",
                     TextStyle {
                         font_size: 40.0,

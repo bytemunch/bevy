@@ -131,17 +131,17 @@ pub fn extract_text2d_sprite(
             * GlobalTransform::from_translation(alignment_translation.extend(0.))
             * scaling;
         let mut color = LinearRgba::WHITE;
-        let mut current_section = usize::MAX;
+        let mut current_span = usize::MAX;
         for PositionedGlyph {
             position,
             atlas_info,
-            section_index,
+            span_index,
             ..
         } in &text_layout_info.glyphs
         {
-            if *section_index != current_section {
-                color = LinearRgba::from(text.sections[*section_index].style.color);
-                current_section = *section_index;
+            if *span_index != current_span {
+                color = LinearRgba::from(text.spans[*span_index].style.color);
+                current_span = *span_index;
             }
             let atlas = texture_atlases.get(&atlas_info.texture_atlas).unwrap();
 
@@ -214,7 +214,7 @@ pub fn update_text2d_layout(
 
             match text_pipeline.queue_text(
                 &fonts,
-                &text.sections,
+                &text.spans,
                 scale_factor.into(),
                 text.justify,
                 text.linebreak_behavior,
@@ -323,7 +323,7 @@ mod tests {
         let entity = app
             .world_mut()
             .spawn((Text2dBundle {
-                text: Text::from_section(FIRST_TEXT, default()),
+                text: Text::from_span(FIRST_TEXT, default()),
                 ..default()
             },))
             .id();
@@ -379,7 +379,7 @@ mod tests {
             .expect("Could not find entity");
         *entity_ref
             .get_mut::<Text>()
-            .expect("Missing Text on entity") = Text::from_section(SECOND_TEXT, default());
+            .expect("Missing Text on entity") = Text::from_span(SECOND_TEXT, default());
 
         // Recomputes the AABB.
         app.update();

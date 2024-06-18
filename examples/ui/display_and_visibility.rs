@@ -96,7 +96,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         ..Default::default()
     }).with_children(|parent| {
         parent.spawn(TextBundle {
-            text: Text::from_section(
+            text: Text::from_span(
                 "Use the panel on the right to change the Display and Visibility properties for the respective nodes of the panel on the left",                
                 text_style.clone(),
             ).with_justify(JustifyText::Center),
@@ -157,20 +157,20 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                 };
 
                 builder.spawn(TextBundle {
-                    text: Text::from_section(
+                    text: Text::from_span(
                         "Display::None\nVisibility::Hidden\nVisibility::Inherited",
                         TextStyle { color: HIDDEN_COLOR, ..text_style.clone() }
                         ).with_justify(JustifyText::Center),
                     ..Default::default()
                     });
                     builder.spawn(TextBundle {
-                        text: Text::from_section(
+                        text: Text::from_span(
                             "-\n-\n-",
                             TextStyle { color: DARK_GRAY.into(), ..text_style.clone() }
                             ).with_justify(JustifyText::Center),
                         ..Default::default()
                         });
-                    builder.spawn(TextBundle::from_section(
+                    builder.spawn(TextBundle::from_span(
                         "The UI Node and its descendants will not be visible and will not be allotted any space in the UI layout.\nThe UI Node will not be visible but will still occupy space in the UI layout.\nThe UI node will inherit the visibility property of its parent. If it has no parent it will be visible.",
                         text_style
                     ));
@@ -423,7 +423,7 @@ where
         ))
         .with_children(|builder| {
             builder.spawn(
-                TextBundle::from_section(
+                TextBundle::from_span(
                     format!("{}::{:?}", Target::<T>::NAME, T::default()),
                     text_style,
                 )
@@ -445,9 +445,9 @@ fn buttons_handler<T>(
             let mut target_value = left_panel_query.get_mut(target.id).unwrap();
             for &child in children {
                 if let Ok(mut text) = text_query.get_mut(child) {
-                    text.sections[0].value = target.update_target(target_value.as_mut());
-                    text.sections[0].style.color = if text.sections[0].value.contains("None")
-                        || text.sections[0].value.contains("Hidden")
+                    text.spans[0].value = target.update_target(target_value.as_mut());
+                    text.spans[0].style.color = if text.spans[0].value.contains("None")
+                        || text.spans[0].value.contains("Hidden")
                     {
                         Color::srgb(1.0, 0.7, 0.7)
                     } else {
@@ -470,7 +470,7 @@ fn text_hover(
                 for &child in children {
                     if let Ok(mut text) = text_query.get_mut(child) {
                         // Bypass change detection to avoid recomputation of the text when only changing the color
-                        text.bypass_change_detection().sections[0].style.color = YELLOW.into();
+                        text.bypass_change_detection().spans[0].style.color = YELLOW.into();
                     }
                 }
             }
@@ -478,9 +478,9 @@ fn text_hover(
                 image.color = Color::BLACK.with_alpha(0.5);
                 for &child in children {
                     if let Ok(mut text) = text_query.get_mut(child) {
-                        text.bypass_change_detection().sections[0].style.color =
-                            if text.sections[0].value.contains("None")
-                                || text.sections[0].value.contains("Hidden")
+                        text.bypass_change_detection().spans[0].style.color =
+                            if text.spans[0].value.contains("None")
+                                || text.spans[0].value.contains("Hidden")
                             {
                                 HIDDEN_COLOR
                             } else {

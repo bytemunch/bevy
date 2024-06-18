@@ -176,7 +176,7 @@ mod game {
                     .with_children(|parent| {
                         // Display two lines of text, the second one with the current settings
                         parent.spawn(
-                            TextBundle::from_section(
+                            TextBundle::from_span(
                                 "Will be back to the menu shortly...",
                                 TextStyle {
                                     font_size: 80.0,
@@ -190,8 +190,8 @@ mod game {
                             }),
                         );
                         parent.spawn(
-                            TextBundle::from_sections([
-                                TextSection::new(
+                            TextBundle::from_spans([
+                                TextSpan::new(
                                     format!("quality: {:?}", *display_quality),
                                     TextStyle {
                                         font_size: 60.0,
@@ -199,7 +199,7 @@ mod game {
                                         ..default()
                                     },
                                 ),
-                                TextSection::new(
+                                TextSpan::new(
                                     " - ",
                                     TextStyle {
                                         font_size: 60.0,
@@ -207,7 +207,7 @@ mod game {
                                         ..default()
                                     },
                                 ),
-                                TextSection::new(
+                                TextSpan::new(
                                     format!("volume: {:?}", *volume),
                                     TextStyle {
                                         font_size: 60.0,
@@ -434,7 +434,7 @@ mod menu {
                     .with_children(|parent| {
                         // Display the game name
                         parent.spawn(
-                            TextBundle::from_section(
+                            TextBundle::from_span(
                                 "Bevy Game Menu UI",
                                 TextStyle {
                                     font_size: 80.0,
@@ -468,7 +468,7 @@ mod menu {
                                     image: UiImage::new(icon),
                                     ..default()
                                 });
-                                parent.spawn(TextBundle::from_section(
+                                parent.spawn(TextBundle::from_span(
                                     "New Game",
                                     button_text_style.clone(),
                                 ));
@@ -489,7 +489,7 @@ mod menu {
                                     image: UiImage::new(icon),
                                     ..default()
                                 });
-                                parent.spawn(TextBundle::from_section(
+                                parent.spawn(TextBundle::from_span(
                                     "Settings",
                                     button_text_style.clone(),
                                 ));
@@ -510,7 +510,7 @@ mod menu {
                                     image: UiImage::new(icon),
                                     ..default()
                                 });
-                                parent.spawn(TextBundle::from_section("Quit", button_text_style));
+                                parent.spawn(TextBundle::from_span("Quit", button_text_style));
                             });
                     });
             });
@@ -573,7 +573,7 @@ mod menu {
                                     action,
                                 ))
                                 .with_children(|parent| {
-                                    parent.spawn(TextBundle::from_section(
+                                    parent.spawn(TextBundle::from_span(
                                         text,
                                         button_text_style.clone(),
                                     ));
@@ -637,7 +637,7 @@ mod menu {
                             })
                             .with_children(|parent| {
                                 // Display a label for the current setting
-                                parent.spawn(TextBundle::from_section(
+                                parent.spawn(TextBundle::from_span(
                                     "Display Quality",
                                     button_text_style.clone(),
                                 ));
@@ -660,7 +660,7 @@ mod menu {
                                         quality_setting,
                                     ));
                                     entity.with_children(|parent| {
-                                        parent.spawn(TextBundle::from_section(
+                                        parent.spawn(TextBundle::from_span(
                                             format!("{quality_setting:?}"),
                                             button_text_style.clone(),
                                         ));
@@ -681,7 +681,7 @@ mod menu {
                                 MenuButtonAction::BackToSettings,
                             ))
                             .with_children(|parent| {
-                                parent.spawn(TextBundle::from_section("Back", button_text_style));
+                                parent.spawn(TextBundle::from_span("Back", button_text_style));
                             });
                     });
             });
@@ -738,7 +738,7 @@ mod menu {
                                 ..default()
                             })
                             .with_children(|parent| {
-                                parent.spawn(TextBundle::from_section(
+                                parent.spawn(TextBundle::from_span(
                                     "Volume",
                                     button_text_style.clone(),
                                 ));
@@ -770,7 +770,7 @@ mod menu {
                                 MenuButtonAction::BackToSettings,
                             ))
                             .with_children(|parent| {
-                                parent.spawn(TextBundle::from_section("Back", button_text_style));
+                                parent.spawn(TextBundle::from_span("Back", button_text_style));
                             });
                     });
             });

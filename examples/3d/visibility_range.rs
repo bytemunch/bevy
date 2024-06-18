@@ -303,7 +303,7 @@ fn update_help_text(mut text_query: Query<&mut Text>, app_status: Res<AppStatus>
 impl AppStatus {
     // Creates and returns help text reflecting the app status.
     fn create_text(&self) -> Text {
-        Text::from_section(
+        Text::from_span(
             format!(
                 "\
 {} (1) Switch from high-poly to low-poly based on camera distance

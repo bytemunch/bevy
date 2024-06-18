@@ -322,7 +322,7 @@ fn add_help_text(
                 top: Val::Px(10.0),
                 ..default()
             },
-            ..TextBundle::from_section(
+            ..TextBundle::from_span(
                 create_help_text(currently_selected_option),
                 TextStyle {
                     font: font.clone(),
@@ -340,7 +340,7 @@ fn add_text<'a>(
     font: &Handle<Font>,
     color: Color,
 ) -> EntityCommands<'a> {
-    parent.spawn(TextBundle::from_section(
+    parent.spawn(TextBundle::from_span(
         label,
         TextStyle {
             font: font.clone(),
@@ -606,8 +606,8 @@ fn update_ui_state(
             Color::WHITE
         };
 
-        for section in &mut text.sections {
-            section.style.color = color;
+        for span in &mut text.spans {
+            span.style.color = color;
         }
 
         // Update the displayed value, if this is the currently-selected option.
@@ -615,15 +615,15 @@ fn update_ui_state(
             && *currently_selected_option == widget.option
         {
             if let Some(ref value_label) = value_label {
-                for section in &mut text.sections {
-                    section.value.clone_from(value_label);
+                for span in &mut text.spans {
+                    span.value.clone_from(value_label);
                 }
             }
         }
     }
 
     // Update the help text.
-    help_text.single_mut().sections[0].value = create_help_text(&currently_selected_option);
+    help_text.single_mut().spans[0].value = create_help_text(&currently_selected_option);
 }
 
 /// Creates the help text at the top left of the window.

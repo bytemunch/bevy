@@ -24,7 +24,7 @@ fn calc_name(texts: &Query<&Text>, children: &Children) -> Option<Box<str>> {
     for child in children {
         if let Ok(text) = texts.get(*child) {
             let values = text
-                .sections
+                .spans
                 .iter()
                 .map(|v| v.value.to_string())
                 .collect::<Vec<String>>();
@@ -118,7 +118,7 @@ fn label_changed(
 ) {
     for (entity, text, accessible) in &mut query {
         let values = text
-            .sections
+            .spans
             .iter()
             .map(|v| v.value.to_string())
             .collect::<Vec<String>>();

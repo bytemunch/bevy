@@ -21,7 +21,7 @@ fn setup(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
     // text
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Hold 'Left' or 'Right' to change the line width of straight gizmos\n\
         Hold 'Up' or 'Down' to change the line width of round gizmos\n\
         Press '1' / '2' to toggle the visibility of straight / round gizmos\n\

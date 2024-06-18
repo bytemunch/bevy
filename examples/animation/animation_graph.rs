@@ -254,7 +254,7 @@ fn setup_scene(
 /// Places the help text at the top left of the window.
 fn setup_help_text(commands: &mut Commands) {
     commands.spawn(TextBundle {
-        text: Text::from_section(HELP_TEXT, TextStyle::default()),
+        text: Text::from_span(HELP_TEXT, TextStyle::default()),
         style: Style {
             position_type: PositionType::Absolute,
             top: Val::Px(12.0),
@@ -275,7 +275,7 @@ fn setup_node_rects(commands: &mut Commands) {
 
         let text = commands
             .spawn(TextBundle {
-                text: Text::from_section(
+                text: Text::from_span(
                     node_string,
                     TextStyle {
                         font_size: 16.0,
@@ -447,7 +447,7 @@ fn update_ui(
             // Update the node labels with the current weights.
             let mut text_iter = text_query.iter_many_mut(children);
             if let Some(mut text) = text_iter.fetch_next() {
-                text.sections[0].value = format!(
+                text.spans[0].value = format!(
                     "{}\n{:.2}",
                     clip_node.text, animation_weights.weights[clip_node.index]
                 );

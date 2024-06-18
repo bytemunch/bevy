@@ -12,7 +12,7 @@ use cosmic_text::{Attrs, Buffer, Metrics, Shaping, Wrap};
 
 use crate::{
     error::TextError, BreakLineOn, CosmicBuffer, Font, FontAtlasSets, JustifyText, PositionedGlyph,
-    TextSection, YAxisOrientation,
+    TextSpan, YAxisOrientation,
 };
 
 /// A wrapper around a [`cosmic_text::FontSystem`]
@@ -62,7 +62,7 @@ impl TextPipeline {
     pub fn update_buffer(
         &mut self,
         fonts: &Assets<Font>,
-        sections: &[TextSection],
+        spans: &[TextSpan],
         linebreak_behavior: BreakLineOn,
         bounds: Vec2,
         scale_factor: f64,
@@ -72,28 +72,28 @@ impl TextPipeline {
 
         // return early if the fonts are not loaded yet
         let mut font_size = 0.;
-        for section in sections {
-            if section.style.font_size > font_size {
-                font_size = section.style.font_size;
+        for span in spans {
+            if span.style.font_size > font_size {
+                font_size = span.style.font_size;
             }
             fonts
-                .get(section.style.font.id())
+                .get(span.style.font.id())
                 .ok_or(TextError::NoSuchFont)?;
         }
         let line_height = font_size * 1.2;
         let (font_size, line_height) = (font_size as f32, line_height as f32);
         let metrics = Metrics::new(font_size, line_height).scale(scale_factor as f32);
 
-        let spans: Vec<(&str, Attrs)> = sections
+        let spans: Vec<(&str, Attrs)> = spans
             .iter()
-            .filter(|section| section.style.font_size > 0.0)
+            .filter(|span| span.style.font_size > 0.0)
             .enumerate()
-            .map(|(section_index, section)| {
+            .map(|(span_index, span)| {
                 (
-                    &section.value[..],
+                    &span.value[..],
                     get_attrs(
-                        section,
-                        section_index,
+                        span,
+                        span_index,
                         font_system,
                         &mut self.map_handle_to_font_id,
                         fonts,
@@ -128,7 +128,7 @@ impl TextPipeline {
     pub fn queue_text(
         &mut self,
         fonts: &Assets<Font>,
-        sections: &[TextSection],
+        spans: &[TextSpan],
         scale_factor: f64,
         // TODO: Implement text alignment properly
         text_alignment: JustifyText,
@@ -140,13 +140,13 @@ impl TextPipeline {
         y_axis_orientation: YAxisOrientation,
         buffer: &mut CosmicBuffer,
     ) -> Result<TextLayoutInfo, TextError> {
-        if sections.is_empty() {
+        if spans.is_empty() {
             return Ok(TextLayoutInfo::default());
         }
 
         self.update_buffer(
             fonts,
-            sections,
+            spans,
             linebreak_behavior,
             bounds,
             scale_factor,
@@ -165,9 +165,9 @@ impl TextPipeline {
                     .map(move |layout_glyph| (layout_glyph, run.line_w, run.line_y))
             })
             .map(|(layout_glyph, line_w, line_y)| {
-                let section_index = layout_glyph.metadata;
+                let span_index = layout_glyph.metadata;
 
-                let font_handle = sections[section_index].style.font.clone_weak();
+                let font_handle = spans[span_index].style.font.clone_weak();
                 let font_atlas_set = font_atlas_sets.sets.entry(font_handle.id()).or_default();
 
                 let physical_glyph = layout_glyph.physical((0., 0.), 1.);
@@ -216,7 +216,7 @@ impl TextPipeline {
                 // TODO: recreate the byte index, that keeps track of where a cursor is,
                 // when glyphs are not limited to single byte representation, relevant for #1319
                 let pos_glyph =
-                    PositionedGlyph::new(position, glyph_size.as_vec2(), atlas_info, section_index);
+                    PositionedGlyph::new(position, glyph_size.as_vec2(), atlas_info, span_index);
                 Ok(pos_glyph)
             })
             .collect::<Result<Vec<_>, _>>()?;
@@ -234,7 +234,7 @@ impl TextPipeline {
     pub fn create_text_measure(
         &mut self,
         fonts: &Assets<Font>,
-        sections: &[TextSection],
+        spans: &[TextSpan],
         scale_factor: f64,
         linebreak_behavior: BreakLineOn,
         buffer: &mut CosmicBuffer,
@@ -243,7 +243,7 @@ impl TextPipeline {
 
         self.update_buffer(
             fonts,
-            sections,
+            spans,
             linebreak_behavior,
             MIN_WIDTH_CONTENT_BOUNDS,
             scale_factor,
@@ -315,17 +315,17 @@ impl TextMeasureInfo {
     }
 }
 
-/// Translates [`TextSection`] to [`Attrs`](cosmic_text::attrs::Attrs),
+/// Translates [`TextSpan`] to [`Attrs`](cosmic_text::attrs::Attrs),
 /// loading fonts into the [`Database`](cosmic_text::fontdb::Database) if required.
 fn get_attrs<'a>(
-    section: &'a TextSection,
-    section_index: usize,
+    span: &'a TextSpan,
+    span_index: usize,
     font_system: &mut cosmic_text::FontSystem,
     map_handle_to_font_id: &mut HashMap<AssetId<Font>, cosmic_text::fontdb::ID>,
     fonts: &Assets<Font>,
     scale_factor: f64,
 ) -> Attrs<'a> {
-    let font_handle = section.style.font.clone();
+    let font_handle = span.style.font.clone();
     let face_id = map_handle_to_font_id
         .entry(font_handle.id())
         .or_insert_with(|| {
@@ -351,14 +351,14 @@ fn get_attrs<'a>(
     // let family_name = &face.families[0].0;
     let attrs = Attrs::new()
         // TODO: validate that we can use metadata
-        .metadata(section_index)
+        .metadata(span_index)
         // TODO: this reference, becomes owned by the font system, which is not really wanted...
         // .family(Family::Name(family_name))
         .stretch(face.stretch)
         .style(face.style)
         .weight(face.weight)
-        .metrics(Metrics::relative(section.style.font_size, 1.2).scale(scale_factor as f32))
-        .color(cosmic_text::Color(section.style.color.to_linear().as_u32()));
+        .metrics(Metrics::relative(span.style.font_size, 1.2).scale(scale_factor as f32))
+        .color(cosmic_text::Color(span.style.color.to_linear().as_u32()));
     attrs
 }
 

@@ -25,10 +25,10 @@ fn main() {
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // UI camera
     commands.spawn(Camera2dBundle::default());
-    // Text with one section
+    // Text with one span
     commands.spawn((
-        // Create a TextBundle that has a Text with a single section.
-        TextBundle::from_section(
+        // Create a TextBundle that has a Text with a single span.
+        TextBundle::from_span(
             // Accepts a `String` or any type that converts into a `String`, such as `&str`
             "Hit 'P' then scroll/click around!",
             TextStyle {

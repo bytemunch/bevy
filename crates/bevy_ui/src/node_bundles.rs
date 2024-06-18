@@ -16,7 +16,7 @@ use bevy_render::view::{InheritedVisibility, ViewVisibility, Visibility};
 use bevy_sprite::TextureAtlas;
 #[cfg(feature = "bevy_text")]
 use bevy_text::{
-    BreakLineOn, CosmicBuffer, JustifyText, Text, TextLayoutInfo, TextSection, TextStyle,
+    BreakLineOn, CosmicBuffer, JustifyText, Text, TextLayoutInfo, TextSpan, TextStyle,
 };
 use bevy_transform::prelude::{GlobalTransform, Transform};
 
@@ -244,22 +244,22 @@ impl Default for TextBundle {
 
 #[cfg(feature = "bevy_text")]
 impl TextBundle {
-    /// Create a [`TextBundle`] from a single section.
+    /// Create a [`TextBundle`] from a single span.
     ///
-    /// See [`Text::from_section`] for usage.
-    pub fn from_section(value: impl Into<String>, style: TextStyle) -> Self {
+    /// See [`Text::from_span`] for usage.
+    pub fn from_span(value: impl Into<String>, style: TextStyle) -> Self {
         Self {
-            text: Text::from_section(value, style),
+            text: Text::from_span(value, style),
             ..Default::default()
         }
     }
 
-    /// Create a [`TextBundle`] from a list of sections.
+    /// Create a [`TextBundle`] from a list of spans.
     ///
-    /// See [`Text::from_sections`] for usage.
-    pub fn from_sections(sections: impl IntoIterator<Item = TextSection>) -> Self {
+    /// See [`Text::from_spans`] for usage.
+    pub fn from_spans(spans: impl IntoIterator<Item = TextSpan>) -> Self {
         Self {
-            text: Text::from_sections(sections),
+            text: Text::from_spans(spans),
             ..Default::default()
         }
     }
@@ -293,10 +293,10 @@ impl TextBundle {
 #[cfg(feature = "bevy_text")]
 impl<I> From<I> for TextBundle
 where
-    I: Into<TextSection>,
+    I: Into<TextSpan>,
 {
     fn from(value: I) -> Self {
-        Self::from_sections(vec![value.into()])
+        Self::from_spans(vec![value.into()])
     }
 }
 

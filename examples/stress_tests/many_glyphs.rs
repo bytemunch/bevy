@@ -1,6 +1,6 @@
 //! Simple text rendering benchmark.
 //!
-//! Creates a `Text` with a single `TextSection` containing `100_000` glyphs,
+//! Creates a `Text` with a single `TextSpan` containing `100_000` glyphs,
 //! and renders it with the UI in a white color and with Text2d in a red color.
 //!
 //! To recompute all text each frame run
@@ -46,7 +46,7 @@ fn setup(mut commands: Commands) {
 
     commands.spawn(Camera2dBundle::default());
     let mut text = Text {
-        sections: vec![TextSection {
+        spans: vec![TextSpan {
             value: "0123456789".repeat(10_000),
             style: TextStyle {
                 font_size: 4.,
@@ -78,7 +78,7 @@ fn setup(mut commands: Commands) {
             });
         });
 
-    text.sections[0].style.color = RED.into();
+    text.spans[0].style.color = RED.into();
 
     commands.spawn(Text2dBundle {
         text,

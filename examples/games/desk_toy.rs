@@ -115,7 +115,7 @@ fn setup(
     };
     commands.spawn((
         Text2dBundle {
-            text: Text::from_section(
+            text: Text::from_span(
                 "Press Space to play on your desktop! Press it again to return.\nRight click Bevy logo to exit.",
                 text_style.clone(),
             ),

@@ -88,7 +88,7 @@ fn setup(mut commands: Commands) {
     });
 
     commands.spawn(
-        TextBundle::from_section("", TextStyle::default()).with_style(Style {
+        TextBundle::from_span("", TextStyle::default()).with_style(Style {
             position_type: PositionType::Absolute,
             top: Val::Px(12.0),
             left: Val::Px(12.0),
@@ -107,7 +107,7 @@ fn ui_system(mut query: Query<&mut Text>, config: Res<Config>, diag: Res<Diagnos
         return;
     };
 
-    text.sections[0].value = format!(
+    text.spans[0].value = format!(
         "Line count: {}\n\
         FPS: {:.0}\n\n\
         Controls:\n\

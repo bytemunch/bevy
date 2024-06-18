@@ -74,7 +74,7 @@ fn update_text(mut text: Query<&mut Text>, cur_state: Res<State<Test>>) {
     }
 
     let mut text = text.single_mut();
-    let text = &mut text.sections[0].value;
+    let text = &mut text.spans[0].value;
     text.clear();
 
     text.push_str("Intersection test:\n");
@@ -267,7 +267,7 @@ fn setup(mut commands: Commands) {
     ));
 
     commands.spawn(
-        TextBundle::from_section("", TextStyle::default()).with_style(Style {
+        TextBundle::from_span("", TextStyle::default()).with_style(Style {
             position_type: PositionType::Absolute,
             bottom: Val::Px(12.0),
             left: Val::Px(12.0),

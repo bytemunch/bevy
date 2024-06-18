@@ -92,7 +92,7 @@ fn setup(mut commands: Commands) {
             ..default()
         })
         .with_children(|parent| {
-            parent.spawn(TextBundle::from_section(
+            parent.spawn(TextBundle::from_span(
                 "Press 1 or 2 to load a new scene.",
                 text_style,
             ));
@@ -299,7 +299,7 @@ fn load_loading_screen(mut commands: Commands) {
             LoadingScreen,
         ))
         .with_children(|parent| {
-            parent.spawn(TextBundle::from_sections([TextSection::new(
+            parent.spawn(TextBundle::from_spans([TextSpan::new(
                 "Loading...",
                 text_style.clone(),
             )]));

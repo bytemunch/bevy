@@ -96,7 +96,7 @@ fn setup_terrain_scene(
 
 fn setup_instructions(mut commands: Commands) {
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Press Spacebar to Toggle Atmospheric Fog.\nPress S to Toggle Directional Light Fog Influence.",
             TextStyle::default(),
         )

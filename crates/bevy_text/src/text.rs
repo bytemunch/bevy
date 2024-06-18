@@ -29,8 +29,8 @@ impl Default for CosmicBuffer {
 #[derive(Component, Debug, Clone, Default, Reflect)]
 #[reflect(Component, Default)]
 pub struct Text {
-    /// The text's sections
-    pub sections: Vec<TextSection>,
+    /// The text's spans
+    pub spans: Vec<TextSpan>,
     /// The text's internal alignment.
     /// Should not affect its position within a container.
     pub justify: JustifyText,
@@ -39,7 +39,7 @@ pub struct Text {
 }
 
 impl Text {
-    /// Constructs a [`Text`] with a single section.
+    /// Constructs a [`Text`] with a single span.
     ///
     /// ```
     /// # use bevy_asset::Handle;
@@ -49,7 +49,7 @@ impl Text {
     /// # let font_handle: Handle<Font> = Default::default();
     /// #
     /// // Basic usage.
-    /// let hello_world = Text::from_section(
+    /// let hello_world = Text::from_span(
     ///     // Accepts a String or any type that converts into a String, such as &str.
     ///     "hello world!",
     ///     TextStyle {
@@ -59,7 +59,7 @@ impl Text {
     ///     },
     /// );
     ///
-    /// let hello_bevy = Text::from_section(
+    /// let hello_bevy = Text::from_span(
     ///     "hello world\nand bevy!",
     ///     TextStyle {
     ///         font: font_handle.into(),
@@ -69,25 +69,25 @@ impl Text {
     /// ) // You can still add text justifaction.
     /// .with_justify(JustifyText::Center);
     /// ```
-    pub fn from_section(value: impl Into<String>, style: TextStyle) -> Self {
+    pub fn from_span(value: impl Into<String>, style: TextStyle) -> Self {
         Self {
-            sections: vec![TextSection::new(value, style)],
+            spans: vec![TextSpan::new(value, style)],
             ..default()
         }
     }
 
-    /// Constructs a [`Text`] from a list of sections.
+    /// Constructs a [`Text`] from a list of spans.
     ///
     /// ```
     /// # use bevy_asset::Handle;
     /// # use bevy_color::Color;
     /// # use bevy_color::palettes::basic::{RED, BLUE};
-    /// # use bevy_text::{Font, Text, TextStyle, TextSection};
+    /// # use bevy_text::{Font, Text, TextStyle, TextSpan};
     /// #
     /// # let font_handle: Handle<Font> = Default::default();
     /// #
-    /// let hello_world = Text::from_sections([
-    ///     TextSection::new(
+    /// let hello_world = Text::from_spans([
+    ///     TextSpan::new(
     ///         "Hello, ",
     ///         TextStyle {
     ///             font: font_handle.clone().into(),
@@ -95,7 +95,7 @@ impl Text {
     ///             color: BLUE.into(),
     ///         },
     ///     ),
-    ///     TextSection::new(
+    ///     TextSpan::new(
     ///         "World!",
     ///         TextStyle {
     ///             font: font_handle.into(),
@@ -105,9 +105,9 @@ impl Text {
     ///     ),
     /// ]);
     /// ```
-    pub fn from_sections(sections: impl IntoIterator<Item = TextSection>) -> Self {
+    pub fn from_spans(spans: impl IntoIterator<Item = TextSpan>) -> Self {
         Self {
-            sections: sections.into_iter().collect(),
+            spans: spans.into_iter().collect(),
             ..default()
         }
     }
@@ -126,17 +126,17 @@ impl Text {
     }
 }
 
-/// Contains the value of the text in a section and how it should be styled.
+/// Contains the value of the text in a span and how it should be styled.
 #[derive(Debug, Default, Clone, Reflect)]
-pub struct TextSection {
-    /// The content (in `String` form) of the text in the section.
+pub struct TextSpan {
+    /// The content (in `String` form) of the text in the span.
     pub value: String,
-    /// The style of the text in the section, including the font face, font size, and color.
+    /// The style of the text in the span, including the font face, font size, and color.
     pub style: TextStyle,
 }
 
-impl TextSection {
-    /// Create a new [`TextSection`].
+impl TextSpan {
+    /// Create a new [`TextSpan`].
     pub fn new(value: impl Into<String>, style: TextStyle) -> Self {
         Self {
             value: value.into(),
@@ -144,7 +144,7 @@ impl TextSection {
         }
     }
 
-    /// Create an empty [`TextSection`] from a style. Useful when the value will be set dynamically.
+    /// Create an empty [`TextSpan`] from a style. Useful when the value will be set dynamically.
     pub const fn from_style(style: TextStyle) -> Self {
         Self {
             value: String::new(),
@@ -154,7 +154,7 @@ impl TextSection {
 }
 
 #[cfg(feature = "default_font")]
-impl From<&str> for TextSection {
+impl From<&str> for TextSpan {
     fn from(value: &str) -> Self {
         Self {
             value: value.into(),
@@ -164,7 +164,7 @@ impl From<&str> for TextSection {
 }
 
 #[cfg(feature = "default_font")]
-impl From<String> for TextSection {
+impl From<String> for TextSpan {
     fn from(value: String) -> Self {
         Self {
             value,
@@ -194,7 +194,7 @@ pub enum JustifyText {
 }
 
 #[derive(Clone, Debug, Reflect)]
-/// `TextStyle` determines the style of the text in a section, specifically
+/// `TextStyle` determines the style of the text in a span, specifically
 /// the font face, the font size, and the color.
 pub struct TextStyle {
     /// The specific font face to use, as a `Handle` to a [`Font`] asset.
@@ -212,7 +212,7 @@ pub struct TextStyle {
     /// A new font atlas is generated for every combination of font handle and scaled font size
     /// which can have a strong performance impact.
     pub font_size: f32,
-    /// The color of the text for this section.
+    /// The color of the text for this span.
     pub color: Color,
 }
 

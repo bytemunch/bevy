@@ -62,7 +62,7 @@ fn setup(
     });
 
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Press <spacebar> to save a screenshot to disk",
             TextStyle::default(),
         )

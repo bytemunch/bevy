@@ -134,7 +134,7 @@ fn setup(
     let text_style = TextStyle::default();
 
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Left / Right - Rotate Camera\nC - Toggle Compensation Curve\nM - Toggle Metering Mask\nV - Visualize Metering Mask",
             text_style.clone(),
         )
@@ -147,7 +147,7 @@ fn setup(
     );
 
     commands.spawn((
-        TextBundle::from_section("", text_style).with_style(Style {
+        TextBundle::from_span("", text_style).with_style(Style {
             position_type: PositionType::Absolute,
             top: Val::Px(10.0),
             right: Val::Px(10.0),
@@ -211,7 +211,7 @@ fn example_control_system(
     };
 
     let mut display = display.single_mut();
-    display.sections[0].value = format!(
+    display.spans[0].value = format!(
         "Compensation Curve: {}\nMetering Mask: {}",
         if auto_exposure.compensation_curve == resources.basic_compensation_curve {
             "Enabled"

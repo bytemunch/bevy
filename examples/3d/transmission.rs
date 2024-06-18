@@ -368,7 +368,7 @@ fn setup(
     let text_style = TextStyle::default();
 
     commands.spawn((
-        TextBundle::from_section("", text_style).with_style(Style {
+        TextBundle::from_span("", text_style).with_style(Style {
             position_type: PositionType::Absolute,
             top: Val::Px(12.0),
             left: Val::Px(12.0),
@@ -585,7 +585,7 @@ fn example_control_system(
     );
 
     let mut display = display.single_mut();
-    display.sections[0].value = format!(
+    display.spans[0].value = format!(
         concat!(
             " J / K / L / ;  Screen Space Specular Transmissive Quality: {:?}\n",
             "         O / P  Screen Space Specular Transmissive Steps: {}\n",

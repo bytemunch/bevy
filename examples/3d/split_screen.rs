@@ -99,7 +99,7 @@ fn setup(
                 },
             ))
             .with_children(|parent| {
-                parent.spawn(TextBundle::from_section(*camera_name, TextStyle::default()));
+                parent.spawn(TextBundle::from_span(*camera_name, TextStyle::default()));
                 buttons_panel(parent);
             });
     }
@@ -145,7 +145,7 @@ fn setup(
                 },
             ))
             .with_children(|parent| {
-                parent.spawn(TextBundle::from_section(caption, TextStyle::default()));
+                parent.spawn(TextBundle::from_span(caption, TextStyle::default()));
             });
     }
 }

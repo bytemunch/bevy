@@ -182,7 +182,7 @@ fn setup_ui(mut commands: Commands) {
             b.spawn((
                 TextBundle {
                     text: Text {
-                        sections: vec![TextSection {
+                        spans: vec![TextSpan {
                             value: "Loading...".to_owned(),
                             style: TextStyle {
                                 font_size: 64.0,
@@ -287,7 +287,7 @@ fn get_async_loading_state(
     if is_loaded {
         next_loading_state.set(LoadingState::Loaded);
         if let Ok(mut text) = text.get_single_mut() {
-            "Loaded!".clone_into(&mut text.sections[0].value);
+            "Loaded!".clone_into(&mut text.spans[0].value);
         }
     }
 }

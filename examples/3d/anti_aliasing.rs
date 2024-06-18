@@ -185,7 +185,7 @@ fn update_ui(
     let (fxaa, smaa, taa, cas_settings) = camera.single();
 
     let mut ui = ui.single_mut();
-    let ui = &mut ui.sections[0].value;
+    let ui = &mut ui.spans[0].value;
 
     *ui = "Antialias Method\n".to_string();
 
@@ -337,7 +337,7 @@ fn setup(
 
     // example instructions
     commands.spawn(
-        TextBundle::from_section("", TextStyle::default()).with_style(Style {
+        TextBundle::from_span("", TextStyle::default()).with_style(Style {
             position_type: PositionType::Absolute,
             top: Val::Px(12.0),
             left: Val::Px(12.0),

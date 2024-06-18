@@ -93,7 +93,7 @@ fn setup(
     });
 
     commands.spawn(
-        TextBundle::from_section("", TextStyle::default()).with_style(Style {
+        TextBundle::from_span("", TextStyle::default()).with_style(Style {
             position_type: PositionType::Absolute,
             bottom: Val::Px(12.0),
             left: Val::Px(12.0),
@@ -155,7 +155,7 @@ fn update(
     }
 
     let mut text = text.single_mut();
-    let text = &mut text.sections[0].value;
+    let text = &mut text.spans[0].value;
     text.clear();
 
     let (o, l, m, h, u) = match ssao_settings.map(|s| s.quality_level) {

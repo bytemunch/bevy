@@ -52,17 +52,11 @@ fn setup_scene(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands
         .spawn((NodeBundle::default(), TargetCamera(first_window_camera)))
         .with_children(|parent| {
-            parent.spawn(TextBundle::from_section(
-                "First window",
-                TextStyle::default(),
-            ));
+            parent.spawn(TextBundle::from_span("First window", TextStyle::default()));
         });
     commands
         .spawn((NodeBundle::default(), TargetCamera(second_window_camera)))
         .with_children(|parent| {
-            parent.spawn(TextBundle::from_section(
-                "Second window",
-                TextStyle::default(),
-            ));
+            parent.spawn(TextBundle::from_span("Second window", TextStyle::default()));
         });
 }

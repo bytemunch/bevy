@@ -83,7 +83,7 @@ fn setup(
 
     // ui
     commands.spawn(
-        TextBundle::from_section("", TextStyle::default()).with_style(Style {
+        TextBundle::from_span("", TextStyle::default()).with_style(Style {
             position_type: PositionType::Absolute,
             top: Val::Px(12.0),
             left: Val::Px(12.0),
@@ -190,7 +190,7 @@ fn setup_image_viewer_scene(
 
     commands
         .spawn((
-            TextBundle::from_section(
+            TextBundle::from_span(
                 "Drag and drop an HDR or EXR file",
                 TextStyle {
                     font_size: 36.0,
@@ -422,13 +422,13 @@ fn update_ui(
         *hide_ui = !*hide_ui;
     }
 
-    let old_text = &text_query.single().sections[0].value;
+    let old_text = &text_query.single().spans[0].value;
 
     if *hide_ui {
         if !old_text.is_empty() {
             // single_mut() always triggers change detection,
             // so only access if text actually needs changing
-            text_query.single_mut().sections[0].value.clear();
+            text_query.single_mut().spans[0].value.clear();
         }
         return;
     }
@@ -545,7 +545,7 @@ fn update_ui(
     if text != old_text.as_str() {
         // single_mut() always triggers change detection,
         // so only access if text actually changed
-        text_query.single_mut().sections[0].value = text;
+        text_query.single_mut().spans[0].value = text;
     }
 }
 

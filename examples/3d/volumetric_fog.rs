@@ -62,7 +62,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // Add the help text.
     commands.spawn(
         TextBundle {
-            text: Text::from_section(
+            text: Text::from_span(
                 "Press WASD or the arrow keys to change the light direction",
                 TextStyle::default(),
             ),

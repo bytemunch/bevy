@@ -99,7 +99,7 @@ fn setup(
 
     // Instructions for the example
     commands.spawn((
-        TextBundle::from_section(
+        TextBundle::from_span(
             "The bright red axis is the primary alignment axis, and it will always be\n\
             made to coincide with the primary target direction (white) exactly.\n\
             The fainter red axis is the secondary alignment axis, and it is made to\n\

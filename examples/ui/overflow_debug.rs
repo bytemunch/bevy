@@ -82,12 +82,12 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     let text_style = TextStyle::default();
 
     commands.spawn((
-        TextBundle::from_sections([
-            TextSection::new(
+        TextBundle::from_spans([
+            TextSpan::new(
                 "Next Overflow Setting (O)\nNext Container Size (S)\nToggle Animation (space)\n\n",
                 text_style.clone(),
             ),
-            TextSection::new(format!("{:?}", Overflow::clip()), text_style.clone()),
+            TextSpan::new(format!("{:?}", Overflow::clip()), text_style.clone()),
         ])
         .with_style(Style {
             position_type: PositionType::Absolute,
@@ -162,7 +162,7 @@ fn spawn_text(
     update_transform: impl UpdateTransform + Component,
 ) {
     spawn_container(parent, update_transform, |parent| {
-        parent.spawn(TextBundle::from_section(
+        parent.spawn(TextBundle::from_span(
             "Bevy",
             TextStyle {
                 font: asset_server.load("fonts/FiraSans-Bold.ttf"),
@@ -274,7 +274,7 @@ fn toggle_overflow(
         };
 
         let mut text = instructions.single_mut();
-        text.sections[1].value = format!("{:?}", style.overflow);
+        text.spans[1].value = format!("{:?}", style.overflow);
     }
 }
 

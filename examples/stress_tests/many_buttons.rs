@@ -259,7 +259,7 @@ fn spawn_button(
 
     if spawn_text {
         builder.with_children(|parent| {
-            parent.spawn(TextBundle::from_section(
+            parent.spawn(TextBundle::from_span(
                 format!("{column}, {row}"),
                 TextStyle {
                     font_size: FONT_SIZE,

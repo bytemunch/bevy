@@ -113,7 +113,7 @@ fn setup(
 
     // Text used to show controls
     commands.spawn(
-        TextBundle::from_section("", TextStyle::default()).with_style(Style {
+        TextBundle::from_span("", TextStyle::default()).with_style(Style {
             position_type: PositionType::Absolute,
             top: Val::Px(12.0),
             left: Val::Px(12.0),
@@ -129,7 +129,7 @@ fn update_colors(
     mut wireframe_colors: Query<&mut WireframeColor, With<Wireframe>>,
     mut text: Query<&mut Text>,
 ) {
-    text.single_mut().sections[0].value = format!(
+    text.single_mut().spans[0].value = format!(
         "Controls
 ---------------
 Z - Toggle global

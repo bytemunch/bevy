@@ -110,7 +110,7 @@ fn setup(
         let text_style = TextStyle::default();
 
         commands.spawn(
-            TextBundle::from_section(
+            TextBundle::from_span(
                 "Press 'D' to toggle drawing gizmos on top of everything else in the scene\n\
             Hold 'Left' or 'Right' to change the line width of the gizmos\n\
             Press 'A' to toggle drawing of the light gizmos\n\
@@ -130,9 +130,9 @@ fn setup(
         light_config.color = LightGizmoColor::MatchLightColor;
 
         commands.spawn((
-            TextBundle::from_sections([
-                TextSection::new("Gizmo color mode: ", text_style.clone()),
-                TextSection::new(gizmo_color_text(light_config), text_style),
+            TextBundle::from_spans([
+                TextSpan::new("Gizmo color mode: ", text_style.clone()),
+                TextSpan::new(gizmo_color_text(light_config), text_style),
             ])
             .with_style(Style {
                 position_type: PositionType::Absolute,
@@ -182,6 +182,6 @@ fn update_config(
             LightGizmoColor::MatchLightColor => LightGizmoColor::ByLightType,
             LightGizmoColor::ByLightType => LightGizmoColor::Manual(GRAY.into()),
         };
-        color_text_query.single_mut().sections[1].value = gizmo_color_text(light_config);
+        color_text_query.single_mut().spans[1].value = gizmo_color_text(light_config);
     }
 }

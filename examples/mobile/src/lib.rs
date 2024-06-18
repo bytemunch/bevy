@@ -132,7 +132,7 @@ fn setup_scene(
         ))
         .with_children(|b| {
             b.spawn(
-                TextBundle::from_section(
+                TextBundle::from_span(
                     "Test Button",
                     TextStyle {
                         font_size: 30.0,

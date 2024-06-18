@@ -23,7 +23,7 @@
 //! or [`bevy_text::text2d::update_text2d_layout`] system (in a 2d world space context)
 //! passes it into [`TextPipeline::queue_text`], which:
 //!
-//! 1. creates a [`Buffer`](cosmic_text::Buffer) from the [`TextSection`]s, generating new [`FontAtlasSet`]s if necessary.
+//! 1. creates a [`Buffer`](cosmic_text::Buffer) from the [`TextSpan`]s, generating new [`FontAtlasSet`]s if necessary.
 //! 2. iterates over each glyph in the [`Buffer`](cosmic_text::Buffer) to create a [`PositionedGlyph`],
 //!    retrieving glyphs from the cache, or rasterizing to a [`FontAtlas`] if necessary.
 //! 3. [`PositionedGlyph`]s are stored in a [`TextLayoutInfo`],
@@ -55,7 +55,7 @@ pub use text2d::*;
 /// Most commonly used re-exported types.
 pub mod prelude {
     #[doc(hidden)]
-    pub use crate::{Font, JustifyText, Text, Text2dBundle, TextError, TextSection, TextStyle};
+    pub use crate::{Font, JustifyText, Text, Text2dBundle, TextError, TextSpan, TextStyle};
 }
 
 use bevy_app::prelude::*;

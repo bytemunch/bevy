@@ -177,7 +177,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>, mut game: ResMu
 
     // scoreboard
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Score:",
             TextStyle {
                 font_size: 40.0,
@@ -385,7 +385,7 @@ fn rotate_bonus(game: Res<Game>, time: Res<Time>, mut transforms: Query<&mut Tra
 // update the score displayed during the game
 fn scoreboard_system(game: Res<Game>, mut query: Query<&mut Text>) {
     let mut text = query.single_mut();
-    text.sections[0].value = format!("Sugar Rush: {}", game.score);
+    text.spans[0].value = format!("Sugar Rush: {}", game.score);
 }
 
 // restart the game when pressing spacebar
@@ -411,7 +411,7 @@ fn display_score(mut commands: Commands, game: Res<Game>) {
             ..default()
         })
         .with_children(|parent| {
-            parent.spawn(TextBundle::from_section(
+            parent.spawn(TextBundle::from_span(
                 format!("Cake eaten: {}", game.cake_eaten),
                 TextStyle {
                     font_size: 80.0,

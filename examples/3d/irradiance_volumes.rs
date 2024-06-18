@@ -348,7 +348,7 @@ impl AppStatus {
             ExampleModel::Fox => SWITCH_TO_SPHERE_HELP_TEXT,
         };
 
-        Text::from_section(
+        Text::from_span(
             format!(
                 "{}\n{}\n{}\n{}\n{}",
                 CLICK_TO_MOVE_HELP_TEXT,

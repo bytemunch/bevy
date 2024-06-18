@@ -337,6 +337,6 @@ impl LightMode {
             LightMode::Directional => "Press Space to switch to a point light",
         };
 
-        Text::from_section(help_text, TextStyle::default())
+        Text::from_span(help_text, TextStyle::default())
     }
 }

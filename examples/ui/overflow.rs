@@ -62,7 +62,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                             })
                             .with_children(|parent| {
                                 parent.spawn(TextBundle {
-                                    text: Text::from_section(label, text_style.clone()),
+                                    text: Text::from_span(label, text_style.clone()),
                                     ..Default::default()
                                 });
                             });

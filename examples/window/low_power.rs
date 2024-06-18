@@ -150,8 +150,8 @@ pub(crate) mod test_setup {
             ExampleMode::ApplicationWithRedraw => "desktop_app(), reactive, RequestRedraw sent",
         };
         let mut text = query.single_mut();
-        text.sections[1].value = mode.to_string();
-        text.sections[3].value = frame.to_string();
+        text.spans[1].value = mode.to_string();
+        text.spans[3].value = frame.to_string();
     }
 
     /// Set up a scene with a cube and some text
@@ -180,20 +180,20 @@ pub(crate) mod test_setup {
         });
         event.send(RequestRedraw);
         commands.spawn((
-            TextBundle::from_sections([
-                TextSection::new(
+            TextBundle::from_spans([
+                TextSpan::new(
                     "Press space bar to cycle modes\n",
                     TextStyle {
                         font_size: 50.0,
                         ..default()
                     },
                 ),
-                TextSection::from_style(TextStyle {
+                TextSpan::from_style(TextStyle {
                     font_size: 50.0,
                     color: LIME.into(),
                     ..default()
                 }),
-                TextSection::new(
+                TextSpan::new(
                     "\nFrame: ",
                     TextStyle {
                         font_size: 50.0,
@@ -201,7 +201,7 @@ pub(crate) mod test_setup {
                         ..default()
                     },
                 ),
-                TextSection::from_style(TextStyle {
+                TextSpan::from_style(TextStyle {
                     font_size: 50.0,
                     color: YELLOW.into(),
                     ..default()

@@ -72,7 +72,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                         .with_children(|parent| {
                             // text
                             parent.spawn((
-                                TextBundle::from_section(
+                                TextBundle::from_span(
                                     "Text Example",
                                     TextStyle {
                                         font: asset_server.load("fonts/FiraSans-Bold.ttf"),
@@ -89,7 +89,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                             #[cfg(feature = "bevy_dev_tools")]
                             // Debug overlay text
                             parent.spawn((
-                                TextBundle::from_section(
+                                TextBundle::from_span(
                                     "Press Space to enable debug outlines.",
                                     TextStyle {
                                         font: asset_server.load("fonts/FiraSans-Bold.ttf"),
@@ -101,7 +101,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 
                             #[cfg(not(feature = "bevy_dev_tools"))]
                             parent.spawn((
-                                TextBundle::from_section(
+                                TextBundle::from_span(
                                     "Try enabling feature \"bevy_dev_tools\".",
                                     TextStyle {
                                         font: asset_server.load("fonts/FiraSans-Bold.ttf"),
@@ -128,7 +128,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                 .with_children(|parent| {
                     // Title
                     parent.spawn((
-                        TextBundle::from_section(
+                        TextBundle::from_span(
                             "Scrolling list",
                             TextStyle {
                                 font: asset_server.load("fonts/FiraSans-Bold.ttf"),
@@ -170,7 +170,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                                     // List items
                                     for i in 0..30 {
                                         parent.spawn((
-                                            TextBundle::from_section(
+                                            TextBundle::from_span(
                                                 format!("Item {i}"),
                                                 TextStyle {
                                                     font: asset_server
@@ -329,7 +329,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                                     },
                                     ..Default::default()
                                 },
-                                Text::from_section("Bevy logo", TextStyle::default()),
+                                Text::from_span("Bevy logo", TextStyle::default()),
                             ));
                         });
                 });

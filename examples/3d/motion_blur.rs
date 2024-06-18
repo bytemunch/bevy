@@ -255,12 +255,12 @@ fn setup_ui(mut commands: Commands) {
     let style = TextStyle::default();
 
     commands.spawn(
-        TextBundle::from_sections(vec![
-            TextSection::new(String::new(), style.clone()),
-            TextSection::new(String::new(), style.clone()),
-            TextSection::new("1/2: -/+ shutter angle (blur amount)\n", style.clone()),
-            TextSection::new("3/4: -/+ sample count (blur quality)\n", style.clone()),
-            TextSection::new("Spacebar: cycle camera\n", style.clone()),
+        TextBundle::from_spans(vec![
+            TextSpan::new(String::new(), style.clone()),
+            TextSpan::new(String::new(), style.clone()),
+            TextSpan::new("1/2: -/+ shutter angle (blur amount)\n", style.clone()),
+            TextSpan::new("3/4: -/+ sample count (blur quality)\n", style.clone()),
+            TextSpan::new("Spacebar: cycle camera\n", style.clone()),
         ])
         .with_style(Style {
             position_type: PositionType::Absolute,
@@ -295,8 +295,8 @@ fn keyboard_inputs(
     settings.shutter_angle = settings.shutter_angle.clamp(0.0, 1.0);
     settings.samples = settings.samples.clamp(0, 64);
     let mut text = text.single_mut();
-    text.sections[0].value = format!("Shutter angle: {:.2}\n", settings.shutter_angle);
-    text.sections[1].value = format!("Samples: {:.5}\n", settings.samples);
+    text.spans[0].value = format!("Shutter angle: {:.2}\n", settings.shutter_angle);
+    text.spans[1].value = format!("Samples: {:.5}\n", settings.samples);
 }
 
 /// Parametric function for a looping race track. `offset` will return the point offset

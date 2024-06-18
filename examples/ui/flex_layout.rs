@@ -173,7 +173,7 @@ fn spawn_nested_text_bundle(
             ..Default::default()
         })
         .with_children(|builder| {
-            builder.spawn(TextBundle::from_section(
+            builder.spawn(TextBundle::from_span(
                 text,
                 TextStyle {
                     font,

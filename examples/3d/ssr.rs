@@ -269,7 +269,7 @@ fn spawn_text(commands: &mut Commands, app_settings: &AppSettings) {
 
 // Creates or recreates the help text.
 fn create_text(app_settings: &AppSettings) -> Text {
-    Text::from_section(
+    Text::from_span(
         format!(
             "{}\n{}\n{}",
             match app_settings.displayed_model {

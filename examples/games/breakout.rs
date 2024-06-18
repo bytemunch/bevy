@@ -233,8 +233,8 @@ fn setup(
     // Scoreboard
     commands.spawn((
         ScoreboardUi,
-        TextBundle::from_sections([
-            TextSection::new(
+        TextBundle::from_spans([
+            TextSpan::new(
                 "Score: ",
                 TextStyle {
                     font_size: SCOREBOARD_FONT_SIZE,
@@ -242,7 +242,7 @@ fn setup(
                     ..default()
                 },
             ),
-            TextSection::from_style(TextStyle {
+            TextSpan::from_style(TextStyle {
                 font_size: SCOREBOARD_FONT_SIZE,
                 color: SCORE_COLOR,
                 ..default()
@@ -354,7 +354,7 @@ fn apply_velocity(mut query: Query<(&mut Transform, &Velocity)>, time: Res<Time>
 
 fn update_scoreboard(score: Res<Score>, mut query: Query<&mut Text, With<ScoreboardUi>>) {
     let mut text = query.single_mut();
-    text.sections[1].value = score.to_string();
+    text.spans[1].value = score.to_string();
 }
 
 fn check_for_collisions(

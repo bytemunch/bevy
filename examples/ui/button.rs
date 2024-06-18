@@ -28,17 +28,17 @@ fn button_system(
         let mut text = text_query.get_mut(children[0]).unwrap();
         match *interaction {
             Interaction::Pressed => {
-                text.sections[0].value = "Press".to_string();
+                text.spans[0].value = "Press".to_string();
                 image.color = PRESSED_BUTTON;
                 border_color.0 = RED.into();
             }
             Interaction::Hovered => {
-                text.sections[0].value = "Hover".to_string();
+                text.spans[0].value = "Hover".to_string();
                 image.color = HOVERED_BUTTON;
                 border_color.0 = Color::WHITE;
             }
             Interaction::None => {
-                text.sections[0].value = "Button".to_string();
+                text.spans[0].value = "Button".to_string();
                 image.color = NORMAL_BUTTON;
                 border_color.0 = Color::BLACK;
             }
@@ -79,7 +79,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     ..default()
                 })
                 .with_children(|parent| {
-                    parent.spawn(TextBundle::from_section(
+                    parent.spawn(TextBundle::from_span(
                         "Button",
                         TextStyle {
                             font: asset_server.load("fonts/FiraSans-Bold.ttf"),

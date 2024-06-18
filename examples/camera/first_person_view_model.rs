@@ -204,7 +204,7 @@ fn spawn_text(mut commands: Commands) {
             ..default()
         })
         .with_children(|parent| {
-            parent.spawn(TextBundle::from_section(
+            parent.spawn(TextBundle::from_span(
                 concat!(
                     "Move the camera with your mouse.\n",
                     "Press arrow up to decrease the FOV of the world model.\n",

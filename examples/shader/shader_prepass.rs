@@ -139,12 +139,12 @@ fn setup(
     let style = TextStyle::default();
 
     commands.spawn(
-        TextBundle::from_sections(vec![
-            TextSection::new("Prepass Output: transparent\n", style.clone()),
-            TextSection::new("\n\n", style.clone()),
-            TextSection::new("Controls\n", style.clone()),
-            TextSection::new("---------------\n", style.clone()),
-            TextSection::new("Space - Change output\n", style),
+        TextBundle::from_spans(vec![
+            TextSpan::new("Prepass Output: transparent\n", style.clone()),
+            TextSpan::new("\n\n", style.clone()),
+            TextSpan::new("Controls\n", style.clone()),
+            TextSpan::new("---------------\n", style.clone()),
+            TextSpan::new("Space - Change output\n", style),
         ])
         .with_style(Style {
             position_type: PositionType::Absolute,
@@ -240,9 +240,9 @@ fn toggle_prepass_view(
             _ => unreachable!(),
         };
         let mut text = text.single_mut();
-        text.sections[0].value = format!("Prepass Output: {label}\n");
-        for section in &mut text.sections {
-            section.style.color = Color::WHITE;
+        text.spans[0].value = format!("Prepass Output: {label}\n");
+        for span in &mut text.spans {
+            span.style.color = Color::WHITE;
         }
 
         let handle = material_handle.single();

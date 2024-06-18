@@ -60,7 +60,7 @@ fn setup_scene(
 
 fn setup_instructions(mut commands: Commands) {
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Move the light with ZQSD or WASD.\nThe camera will smoothly track the light.",
             TextStyle::default(),
         )

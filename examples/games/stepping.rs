@@ -103,7 +103,7 @@ fn build_ui(
     mut stepping: ResMut<Stepping>,
     mut state: ResMut<State>,
 ) {
-    let mut text_sections = Vec::new();
+    let mut text_spans = Vec::new();
     let mut always_run = Vec::new();
 
     let Ok(schedule_order) = stepping.schedules() else {
@@ -114,7 +114,7 @@ fn build_ui(
     // each label
     for label in schedule_order {
         let schedule = schedules.get(*label).unwrap();
-        text_sections.push(TextSection::new(
+        text_spans.push(TextSpan::new(
             format!("{:?}\n", label),
             TextStyle {
                 font: asset_server.load(FONT_BOLD),
@@ -138,10 +138,10 @@ fn build_ui(
 
             // Add an entry to our systems list so we can find where to draw
             // the cursor when the stepping cursor is at this system
-            state.systems.push((*label, node_id, text_sections.len()));
+            state.systems.push((*label, node_id, text_spans.len()));
 
-            // Add a text section for displaying the cursor for this system
-            text_sections.push(TextSection::new(
+            // Add a text span for displaying the cursor for this system
+            text_spans.push(TextSpan::new(
                 "   ",
                 TextStyle {
                     color: FONT_COLOR,
@@ -150,7 +150,7 @@ fn build_ui(
             ));
 
             // add the name of the system to the ui
-            text_sections.push(TextSection::new(
+            text_spans.push(TextSpan::new(
                 format!("{}\n", system.name()),
                 TextStyle {
                     color: FONT_COLOR,
@@ -167,7 +167,7 @@ fn build_ui(
     commands.spawn((
         SteppingUi,
         TextBundle {
-            text: Text::from_sections(text_sections),
+            text: Text::from_spans(text_spans),
             style: Style {
                 position_type: PositionType::Absolute,
                 top: state.ui_top,
@@ -190,7 +190,7 @@ fn build_stepping_hint(mut commands: Commands) {
     };
     info!("{}", hint_text);
     // stepping description box
-    commands.spawn((TextBundle::from_sections([TextSection::new(
+    commands.spawn((TextBundle::from_spans([TextSpan::new(
         hint_text,
         TextStyle {
             font_size: 18.0,
@@ -274,6 +274,6 @@ fn update_ui(
         } else {
             "   "
         };
-        text.sections[*text_index].value = mark.to_string();
+        text.spans[*text_index].value = mark.to_string();
     }
 }

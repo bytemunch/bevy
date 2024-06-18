@@ -53,7 +53,7 @@ fn setup(mut commands: Commands) {
                 .with_children(|parent| {
                     parent.spawn((
                         CustomText,
-                        TextBundle::from_section(
+                        TextBundle::from_span(
                             "Example text",
                             TextStyle {
                                 font_size: 30.0,
@@ -89,7 +89,7 @@ fn display_override(
     window.title.clone_from(&text);
 
     let mut custom_text = custom_text.single_mut();
-    custom_text.sections[0].value = text;
+    custom_text.spans[0].value = text;
 }
 
 /// This system toggles scale factor overrides when enter is pressed

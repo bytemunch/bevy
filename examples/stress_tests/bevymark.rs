@@ -230,8 +230,8 @@ fn setup(
         transform_rng: ChaCha8Rng::seed_from_u64(42),
     };
 
-    let text_section = move |color: Srgba, value: &str| {
-        TextSection::new(
+    let text_span = move |color: Srgba, value: &str| {
+        TextSpan::new(
             value,
             TextStyle {
                 font_size: 40.0,
@@ -255,15 +255,15 @@ fn setup(
         })
         .with_children(|c| {
             c.spawn((
-                TextBundle::from_sections([
-                    text_section(LIME, "Bird Count: "),
-                    text_section(AQUA, ""),
-                    text_section(LIME, "\nFPS (raw): "),
-                    text_section(AQUA, ""),
-                    text_section(LIME, "\nFPS (SMA): "),
-                    text_section(AQUA, ""),
-                    text_section(LIME, "\nFPS (EMA): "),
-                    text_section(AQUA, ""),
+                TextBundle::from_spans([
+                    text_span(LIME, "Bird Count: "),
+                    text_span(AQUA, ""),
+                    text_span(LIME, "\nFPS (raw): "),
+                    text_span(AQUA, ""),
+                    text_span(LIME, "\nFPS (SMA): "),
+                    text_span(AQUA, ""),
+                    text_span(LIME, "\nFPS (EMA): "),
+                    text_span(AQUA, ""),
                 ]),
                 StatsText,
             ));
@@ -525,18 +525,18 @@ fn counter_system(
     let mut text = query.single_mut();
 
     if counter.is_changed() {
-        text.sections[1].value = counter.count.to_string();
+        text.spans[1].value = counter.count.to_string();
     }
 
     if let Some(fps) = diagnostics.get(&FrameTimeDiagnosticsPlugin::FPS) {
         if let Some(raw) = fps.value() {
-            text.sections[3].value = format!("{raw:.2}");
+            text.spans[3].value = format!("{raw:.2}");
         }
         if let Some(sma) = fps.average() {
-            text.sections[5].value = format!("{sma:.2}");
+            text.spans[5].value = format!("{sma:.2}");
         }
         if let Some(ema) = fps.smoothed() {
-            text.sections[7].value = format!("{ema:.2}");
+            text.spans[7].value = format!("{ema:.2}");
         }
     };
 }

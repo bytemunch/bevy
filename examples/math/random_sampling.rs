@@ -113,7 +113,7 @@ fn setup(
 
     // Instructions for the example:
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Controls:\n\
             M: Toggle between sampling boundary and interior.\n\
             R: Restart (erase all samples).\n\

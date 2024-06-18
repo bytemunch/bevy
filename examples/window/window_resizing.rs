@@ -44,7 +44,7 @@ fn setup_ui(mut cmd: Commands) {
     .with_children(|root| {
         // Text where we display current resolution
         root.spawn((
-            TextBundle::from_section(
+            TextBundle::from_span(
                 "Resolution",
                 TextStyle {
                     font_size: 50.0,
@@ -87,6 +87,6 @@ fn on_resize_system(
     let mut text = q.single_mut();
     for e in resize_reader.read() {
         // When resolution is being changed
-        text.sections[0].value = format!("{:.1} x {:.1}", e.width, e.height);
+        text.spans[0].value = format!("{:.1} x {:.1}", e.width, e.height);
     }
 }

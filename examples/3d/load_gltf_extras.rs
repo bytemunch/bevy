@@ -37,7 +37,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 
     // a place to display the extras on screen
     commands.spawn((
-        TextBundle::from_section(
+        TextBundle::from_span(
             "",
             TextStyle {
                 font_size: 18.,
@@ -92,6 +92,6 @@ fn check_for_gltf_extras(
             gltf_extra_infos_lines.push(formatted_extras);
         }
         let mut display = display.single_mut();
-        display.sections[0].value = gltf_extra_infos_lines.join("\n");
+        display.spans[0].value = gltf_extra_infos_lines.join("\n");
     }
 }

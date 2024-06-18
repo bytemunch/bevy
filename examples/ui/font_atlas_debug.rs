@@ -71,7 +71,7 @@ fn text_update_system(
     if state.timer.tick(time.delta()).finished() {
         for mut text in &mut query {
             let c = seeded_rng.gen::<u8>() as char;
-            let string = &mut text.sections[0].value;
+            let string = &mut text.spans[0].value;
             if !string.contains(c) {
                 string.push(c);
             }
@@ -96,7 +96,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>, mut state: ResM
             ..default()
         })
         .with_children(|parent| {
-            parent.spawn(TextBundle::from_section(
+            parent.spawn(TextBundle::from_span(
                 "a",
                 TextStyle {
                     font: font_handle,

@@ -265,7 +265,7 @@ fn create_label(
     text_style: TextStyle,
 ) {
     commands.spawn(Text2dBundle {
-        text: Text::from_section(text, text_style).with_justify(JustifyText::Center),
+        text: Text::from_span(text, text_style).with_justify(JustifyText::Center),
         transform: Transform {
             translation: Vec3::new(translation.0, translation.1, translation.2),
             ..default()

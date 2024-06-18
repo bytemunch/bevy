@@ -64,7 +64,7 @@ fn setup(
 
     // Text to describe the controls.
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Controls:\nSpace: Change UVs\nX/Y/Z: Rotate\nR: Reset orientation",
             TextStyle::default(),
         )

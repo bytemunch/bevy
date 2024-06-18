@@ -98,7 +98,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>, mut time: ResMu
         .with_children(|builder| {
             // real time info
             builder.spawn((
-                TextBundle::from_section(
+                TextBundle::from_span(
                     "",
                     TextStyle {
                         font_size,
@@ -110,7 +110,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>, mut time: ResMu
 
             // keybindings
             builder.spawn(
-                TextBundle::from_section(
+                TextBundle::from_span(
                     "CONTROLS\nUn/Pause: Space\nSpeed+: Up\nSpeed-: Down",
                     TextStyle {
                         font_size,
@@ -123,7 +123,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>, mut time: ResMu
 
             // virtual time info
             builder.spawn((
-                TextBundle::from_section(
+                TextBundle::from_span(
                     "",
                     TextStyle {
                         font_size,
@@ -194,7 +194,7 @@ fn toggle_pause(mut time: ResMut<Time<Virtual>>) {
 /// Update the `Real` time info text
 fn update_real_time_info_text(time: Res<Time<Real>>, mut query: Query<&mut Text, With<RealTime>>) {
     for mut text in &mut query {
-        text.sections[0].value = format!(
+        text.spans[0].value = format!(
             "REAL TIME\nElapsed: {:.1}\nDelta: {:.5}\n",
             time.elapsed_seconds(),
             time.delta_seconds(),
@@ -208,7 +208,7 @@ fn update_virtual_time_info_text(
     mut query: Query<&mut Text, With<VirtualTime>>,
 ) {
     for mut text in &mut query {
-        text.sections[0].value = format!(
+        text.spans[0].value = format!(
             "VIRTUAL TIME\nElapsed: {:.1}\nDelta: {:.5}\nSpeed: {:.2}",
             time.elapsed_seconds(),
             time.delta_seconds(),

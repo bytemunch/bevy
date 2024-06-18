@@ -41,7 +41,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     ..default()
                 })
                 .with_children(|parent| {
-                    parent.spawn(TextBundle::from_section(
+                    parent.spawn(TextBundle::from_span(
                         "Button 1",
                         TextStyle {
                             font: font_handle.clone(),
@@ -67,7 +67,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     ..default()
                 })
                 .with_children(|parent| {
-                    parent.spawn(TextBundle::from_section(
+                    parent.spawn(TextBundle::from_span(
                         "Button 2",
                         TextStyle {
                             font: font_handle.clone(),

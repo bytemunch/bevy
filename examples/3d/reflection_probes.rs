@@ -281,7 +281,7 @@ impl AppStatus {
             START_ROTATION_HELP_TEXT
         };
 
-        Text::from_section(
+        Text::from_span(
             format!(
                 "{}\n{}\n{}",
                 self.reflection_mode, rotation_help_text, REFLECTION_MODE_HELP_TEXT

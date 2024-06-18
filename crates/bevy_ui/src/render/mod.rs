@@ -843,17 +843,17 @@ pub fn extract_uinode_text(
         transform.translation *= inverse_scale_factor;
 
         let mut color = LinearRgba::WHITE;
-        let mut current_section = usize::MAX;
+        let mut current_span = usize::MAX;
         for PositionedGlyph {
             position,
             atlas_info,
-            section_index,
+            span_index,
             ..
         } in &text_layout_info.glyphs
         {
-            if *section_index != current_section {
-                color = LinearRgba::from(text.sections[*section_index].style.color);
-                current_section = *section_index;
+            if *span_index != current_span {
+                color = LinearRgba::from(text.spans[*span_index].style.color);
+                current_span = *span_index;
             }
             let atlas = texture_atlases.get(&atlas_info.texture_atlas).unwrap();
 

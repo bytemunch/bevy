@@ -122,8 +122,8 @@ impl fmt::Display for Target {
     }
 }
 impl Target {
-    fn text_section(&self, key: &str, style: TextStyle) -> TextSection {
-        TextSection::new(format!("[{key}] {self}\n"), style)
+    fn text_span(&self, key: &str, style: TextStyle) -> TextSpan {
+        TextSpan::new(format!("[{key}] {self}\n"), style)
     }
     fn new(
         entity_name: Option<&Name>,
@@ -196,7 +196,7 @@ fn update_text(
         }
         let key_name = &AVAILABLE_KEYS[i].name;
         let mut text = text.single_mut();
-        text.sections[i + 2].value = format!("[{key_name}] {target}\n");
+        text.spans[i + 2].value = format!("[{key_name}] {target}\n");
     }
 }
 fn update_morphs(
@@ -257,15 +257,15 @@ fn detect_morphs(
         font_size: 13.0,
         ..default()
     };
-    let mut sections = vec![
-        TextSection::new("Morph Target Controls\n", style.clone()),
-        TextSection::new("---------------\n", style.clone()),
+    let mut spans = vec![
+        TextSpan::new("Morph Target Controls\n", style.clone()),
+        TextSpan::new("---------------\n", style.clone()),
     ];
     let target_to_text =
-        |(i, target): (usize, &Target)| target.text_section(AVAILABLE_KEYS[i].name, style.clone());
-    sections.extend(detected.iter().enumerate().map(target_to_text));
+        |(i, target): (usize, &Target)| target.text_span(AVAILABLE_KEYS[i].name, style.clone());
+    spans.extend(detected.iter().enumerate().map(target_to_text));
     commands.insert_resource(WeightsControl { weights: detected });
-    commands.spawn(TextBundle::from_sections(sections).with_style(Style {
+    commands.spawn(TextBundle::from_spans(spans).with_style(Style {
         position_type: PositionType::Absolute,
         top: Val::Px(10.0),
         left: Val::Px(10.0),

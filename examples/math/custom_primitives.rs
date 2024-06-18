@@ -167,7 +167,7 @@ fn setup(
 
     // Example instructions
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Press 'B' to toggle between no bounding shapes, bounding boxes (AABBs) and bounding spheres / circles\n\
             Press 'Space' to switch between 3D and 2D",
             TextStyle::default(),

@@ -28,10 +28,10 @@ struct ColorText;
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // UI camera
     commands.spawn(Camera2dBundle::default());
-    // Text with one section
+    // Text with one span
     commands.spawn((
-        // Create a TextBundle that has a Text with a single section.
-        TextBundle::from_section(
+        // Create a TextBundle that has a Text with a single span.
+        TextBundle::from_span(
             // Accepts a `String` or any type that converts into a `String`, such as `&str`
             "hello\nbevy!",
             TextStyle {
@@ -52,11 +52,11 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         ColorText,
     ));
 
-    // Text with multiple sections
+    // Text with multiple spans
     commands.spawn((
-        // Create a TextBundle that has a Text with a list of sections.
-        TextBundle::from_sections([
-            TextSection::new(
+        // Create a TextBundle that has a Text with a list of spans.
+        TextBundle::from_spans([
+            TextSpan::new(
                 "FPS: ",
                 TextStyle {
                     // This font is loaded and will be used instead of the default font.
@@ -65,7 +65,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     ..default()
                 },
             ),
-            TextSection::from_style(if cfg!(feature = "default_font") {
+            TextSpan::from_style(if cfg!(feature = "default_font") {
                 TextStyle {
                     font_size: 40.0,
                     color: GOLD.into(),
@@ -86,7 +86,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 
     #[cfg(feature = "default_font")]
     commands.spawn(
-        // Here we are able to call the `From` method instead of creating a new `TextSection`.
+        // Here we are able to call the `From` method instead of creating a new `TextSpan`.
         // This will use the default font (a minimal subset of FiraMono) and apply the default styling.
         TextBundle::from("From an &str into a TextBundle with the default font!").with_style(
             Style {
@@ -100,7 +100,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 
     #[cfg(not(feature = "default_font"))]
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Default font disabled",
             TextStyle {
                 font: asset_server.load("fonts/FiraMono-Medium.ttf"),
@@ -120,8 +120,8 @@ fn text_color_system(time: Res<Time>, mut query: Query<&mut Text, With<ColorText
     for mut text in &mut query {
         let seconds = time.elapsed_seconds();
 
-        // Update the color of the first and only section.
-        text.sections[0].style.color = Color::srgb(
+        // Update the color of the first and only span.
+        text.spans[0].style.color = Color::srgb(
             (1.25 * seconds).sin() / 2.0 + 0.5,
             (0.75 * seconds).sin() / 2.0 + 0.5,
             (0.50 * seconds).sin() / 2.0 + 0.5,
@@ -136,8 +136,8 @@ fn text_update_system(
     for mut text in &mut query {
         if let Some(fps) = diagnostics.get(&FrameTimeDiagnosticsPlugin::FPS) {
             if let Some(value) = fps.smoothed() {
-                // Update the value of the second section
-                text.sections[1].value = format!("{value:.2}");
+                // Update the value of the second span
+                text.spans[1].value = format!("{value:.2}");
             }
         }
     }

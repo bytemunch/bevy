@@ -234,30 +234,30 @@ fn setup(
     let style = TextStyle::default();
 
     commands.spawn(
-        TextBundle::from_sections(vec![
-            TextSection::new(
+        TextBundle::from_spans(vec![
+            TextSpan::new(
                 format!("Aperture: f/{:.0}\n", parameters.aperture_f_stops),
                 style.clone(),
             ),
-            TextSection::new(
+            TextSpan::new(
                 format!(
                     "Shutter speed: 1/{:.0}s\n",
                     1.0 / parameters.shutter_speed_s
                 ),
                 style.clone(),
             ),
-            TextSection::new(
+            TextSpan::new(
                 format!("Sensitivity: ISO {:.0}\n", parameters.sensitivity_iso),
                 style.clone(),
             ),
-            TextSection::new("\n\n", style.clone()),
-            TextSection::new("Controls\n", style.clone()),
-            TextSection::new("---------------\n", style.clone()),
-            TextSection::new("Arrow keys - Move objects\n", style.clone()),
-            TextSection::new("1/2 - Decrease/Increase aperture\n", style.clone()),
-            TextSection::new("3/4 - Decrease/Increase shutter speed\n", style.clone()),
-            TextSection::new("5/6 - Decrease/Increase sensitivity\n", style.clone()),
-            TextSection::new("R - Reset exposure", style),
+            TextSpan::new("\n\n", style.clone()),
+            TextSpan::new("Controls\n", style.clone()),
+            TextSpan::new("---------------\n", style.clone()),
+            TextSpan::new("Arrow keys - Move objects\n", style.clone()),
+            TextSpan::new("1/2 - Decrease/Increase aperture\n", style.clone()),
+            TextSpan::new("3/4 - Decrease/Increase shutter speed\n", style.clone()),
+            TextSpan::new("5/6 - Decrease/Increase sensitivity\n", style.clone()),
+            TextSpan::new("R - Reset exposure", style),
         ])
         .with_style(Style {
             position_type: PositionType::Absolute,
@@ -302,12 +302,12 @@ fn update_exposure(
         *parameters = Parameters::default();
     }
 
-    text.sections[0].value = format!("Aperture: f/{:.0}\n", parameters.aperture_f_stops);
-    text.sections[1].value = format!(
+    text.spans[0].value = format!("Aperture: f/{:.0}\n", parameters.aperture_f_stops);
+    text.spans[1].value = format!(
         "Shutter speed: 1/{:.0}s\n",
         1.0 / parameters.shutter_speed_s
     );
-    text.sections[2].value = format!("Sensitivity: ISO {:.0}\n", parameters.sensitivity_iso);
+    text.spans[2].value = format!("Sensitivity: ISO {:.0}\n", parameters.sensitivity_iso);
 
     *exposure.single_mut() = Exposure::from_physical_camera(**parameters);
 }

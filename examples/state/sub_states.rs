@@ -184,7 +184,7 @@ mod ui {
                         ..default()
                     })
                     .with_children(|parent| {
-                        parent.spawn(TextBundle::from_section(
+                        parent.spawn(TextBundle::from_span(
                             "Play",
                             TextStyle {
                                 font_size: 40.0,
@@ -239,7 +239,7 @@ mod ui {
                         ..default()
                     })
                     .with_children(|parent| {
-                        parent.spawn(TextBundle::from_section(
+                        parent.spawn(TextBundle::from_span(
                             "Paused",
                             TextStyle {
                                 font_size: 40.0,

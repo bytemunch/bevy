@@ -72,7 +72,7 @@ struct Explode;
 fn setup(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Click on a \"Mine\" to trigger it.\n\
             When it explodes it will trigger all overlapping mines.",
             TextStyle {

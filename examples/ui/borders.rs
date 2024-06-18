@@ -142,7 +142,7 @@ fn setup(mut commands: Commands) {
             .add_child(inner_spot)
             .id();
         let label_node = commands
-            .spawn(TextBundle::from_section(
+            .spawn(TextBundle::from_span(
                 label,
                 TextStyle {
                     font_size: 9.0,

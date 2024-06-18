@@ -45,7 +45,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // Demonstrate changing translation
     commands.spawn((
         Text2dBundle {
-            text: Text::from_section("translation", text_style.clone())
+            text: Text::from_span("translation", text_style.clone())
                 .with_justify(text_justification),
             ..default()
         },
@@ -54,8 +54,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // Demonstrate changing rotation
     commands.spawn((
         Text2dBundle {
-            text: Text::from_section("rotation", text_style.clone())
-                .with_justify(text_justification),
+            text: Text::from_span("rotation", text_style.clone()).with_justify(text_justification),
             ..default()
         },
         AnimateRotation,
@@ -63,7 +62,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // Demonstrate changing scale
     commands.spawn((
         Text2dBundle {
-            text: Text::from_section("scale", text_style).with_justify(text_justification),
+            text: Text::from_span("scale", text_style).with_justify(text_justification),
             transform: Transform::from_translation(Vec3::new(400.0, 0.0, 0.0)),
             ..default()
         },
@@ -90,7 +89,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         .with_children(|builder| {
             builder.spawn(Text2dBundle {
                 text: Text {
-                    sections: vec![TextSection::new(
+                    spans: vec![TextSpan::new(
                         "this text wraps in the box\n(Unicode linebreaks)",
                         slightly_smaller_text_style.clone(),
                     )],
@@ -122,7 +121,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         .with_children(|builder| {
             builder.spawn(Text2dBundle {
                 text: Text {
-                    sections: vec![TextSection::new(
+                    spans: vec![TextSpan::new(
                         "this text wraps in the box\n(AnyCharacter linebreaks)",
                         slightly_smaller_text_style.clone(),
                     )],
@@ -147,7 +146,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     ] {
         commands.spawn(Text2dBundle {
             text: Text {
-                sections: vec![TextSection::new(
+                spans: vec![TextSpan::new(
                     format!(" Anchor::{text_anchor:?} "),
                     TextStyle {
                         color,

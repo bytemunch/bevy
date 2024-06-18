@@ -55,7 +55,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                 .insert(RelativeCursorPosition::default());
 
             parent.spawn(TextBundle {
-                text: Text::from_section(
+                text: Text::from_span(
                     "(0.0, 0.0)",
                     TextStyle {
                         font: asset_server.load("fonts/FiraSans-Bold.ttf"),
@@ -77,7 +77,7 @@ fn relative_cursor_position_system(
 
     let mut output = output_query.single_mut();
 
-    output.sections[0].value =
+    output.spans[0].value =
         if let Some(relative_cursor_position) = relative_cursor_position.normalized {
             format!(
                 "({:.1}, {:.1})",
@@ -87,7 +87,7 @@ fn relative_cursor_position_system(
             "unknown".to_string()
         };
 
-    output.sections[0].style.color = if relative_cursor_position.mouse_over() {
+    output.spans[0].style.color = if relative_cursor_position.mouse_over() {
         Color::srgb(0.1, 0.9, 0.1)
     } else {
         Color::srgb(0.9, 0.1, 0.1)

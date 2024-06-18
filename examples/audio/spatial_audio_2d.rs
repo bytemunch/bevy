@@ -76,7 +76,7 @@ fn setup(
 
     // example instructions
     commands.spawn(
-        TextBundle::from_section(
+        TextBundle::from_span(
             "Up/Down/Left/Right: Move Listener\nSpace: Toggle Emitter Movement",
             TextStyle::default(),
         )

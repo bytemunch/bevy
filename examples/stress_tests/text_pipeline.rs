@@ -1,6 +1,6 @@
 //! Text pipeline benchmark.
 //!
-//! Continuously recomputes a large `Text` component with 100 sections.
+//! Continuously recomputes a large `Text` component with 100 spans.
 
 use bevy::{
     color::palettes::basic::{BLUE, YELLOW},
@@ -39,10 +39,10 @@ fn spawn(mut commands: Commands, asset_server: Res<AssetServer>) {
     warn!(include_str!("warning_string.txt"));
 
     commands.spawn(Camera2dBundle::default());
-    let sections = (1..=50)
+    let spans = (1..=50)
         .flat_map(|i| {
             [
-                TextSection {
+                TextSpan {
                     value: "text".repeat(i),
                     style: TextStyle {
                         font: asset_server.load("fonts/FiraMono-Medium.ttf"),
@@ -50,7 +50,7 @@ fn spawn(mut commands: Commands, asset_server: Res<AssetServer>) {
                         color: BLUE.into(),
                     },
                 },
-                TextSection {
+                TextSpan {
                     value: "pipeline".repeat(i),
                     style: TextStyle {
                         font: asset_server.load("fonts/FiraSans-Bold.ttf"),
@@ -63,7 +63,7 @@ fn spawn(mut commands: Commands, asset_server: Res<AssetServer>) {
         .collect::<Vec<_>>();
     commands.spawn(Text2dBundle {
         text: Text {
-            sections,
+            spans,
             justify: JustifyText::Center,
             linebreak_behavior: BreakLineOn::AnyCharacter,
         },
