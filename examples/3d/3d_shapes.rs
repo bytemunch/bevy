@@ -28,7 +28,7 @@ fn main() {
 #[derive(Component)]
 struct Shape;
 
-const SHAPES_X_EXTENT: f32 = 14.0;
+const SHAPES_X_EXTENT: f32 = 16.0;
 const EXTRUSION_X_EXTENT: f32 = 16.0;
 const Z_EXTENT: f32 = 5.0;
 
@@ -53,6 +53,7 @@ fn setup(
         meshes.add(ConicalFrustum::default()),
         meshes.add(Sphere::default().mesh().ico(5).unwrap()),
         meshes.add(Sphere::default().mesh().uv(32, 18)),
+        meshes.add(Ellipsoid::new(0.4, 0.5, 0.3)),
     ];
 
     let extrusions = [

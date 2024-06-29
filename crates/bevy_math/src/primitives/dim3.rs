@@ -80,6 +80,66 @@ impl Measured3d for Sphere {
     }
 }
 
+/// An ellipsoid primitive
+#[derive(Clone, Copy, Debug, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(
+    feature = "bevy_reflect",
+    derive(Reflect),
+    reflect(Debug, PartialEq, Default)
+)]
+#[cfg_attr(
+    all(feature = "serialize", feature = "bevy_reflect"),
+    reflect(Serialize, Deserialize)
+)]
+pub struct Ellipsoid {
+    /// The first radial parameter
+    pub a: f32,
+    /// The second radial parameter
+    pub b: f32,
+    /// The third radial parameter
+    pub c: f32,
+}
+impl Primitive3d for Ellipsoid {}
+
+impl Default for Ellipsoid {
+    /// Returns the default [`Sphere`] with a radius of `0.5`.
+    fn default() -> Self {
+        Self {
+            a: 0.5,
+            b: 0.5,
+            c: 0.5,
+        }
+    }
+}
+
+impl Ellipsoid {
+    /// Create a new [`Ellipsoid`] from `a, b, c`
+    #[inline(always)]
+    pub const fn new(a: f32, b: f32, c: f32) -> Self {
+        Self { a, b, c }
+    }
+}
+
+impl Measured3d for Ellipsoid {
+    /// Get the surface area of the ellipsoid
+    /// NOTE: this formula is approximate
+    #[inline(always)]
+    fn area(&self) -> f32 {
+        4.0 * PI
+            * (((self.a * self.b).powf(1.6)
+                + (self.a * self.c).powf(1.6)
+                + (self.b * self.c).powf(1.6))
+                / 3.0)
+    }
+
+    /// Get the volume of the sphere
+    #[inline(always)]
+    fn volume(&self) -> f32 {
+        4.0 * FRAC_PI_3 * self.a * self.b * self.c
+    }
+}
+
 /// A bounded plane in 3D space. It forms a surface starting from the origin with a defined height and width.
 #[derive(Clone, Copy, Debug, PartialEq)]
 #[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
